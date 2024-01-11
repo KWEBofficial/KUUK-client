@@ -54,5 +54,12 @@ module.exports = {
         alphabetize: { order: 'desc', caseInsensitive: true },
       },
     ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
+    'no-console': 'off',
   },
 };
