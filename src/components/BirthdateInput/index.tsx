@@ -28,7 +28,7 @@ export default function BirthdateInput({ onChange }: BirthdateInputProps) {
     }
   };
   return (
-    <Box sx={{ '& > *': { marginLeft: 2, marginRight: 2 } }}>
+    <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center' }}>
       <FormControl>
         <InputLabel id="year-select-label">년도</InputLabel>
         <Select
