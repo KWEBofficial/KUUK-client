@@ -20,56 +20,6 @@ export function HistoryPage() {
       pollName: '이거먹자',
       endedAt: new Date(2024, 1, 15),
     },
-    {
-      id: 2,
-      pollName: '뭐먹지',
-      endedAt: new Date(2024, 1, 13),
-    },
-    {
-      id: 3,
-      pollName: '이거먹자',
-      endedAt: new Date(2024, 1, 15),
-    },
-    {
-      id: 2,
-      pollName: '뭐먹지',
-      endedAt: new Date(2024, 1, 13),
-    },
-    {
-      id: 3,
-      pollName: '이거먹자',
-      endedAt: new Date(2024, 1, 15),
-    },
-    {
-      id: 2,
-      pollName: '뭐먹지',
-      endedAt: new Date(2024, 1, 13),
-    },
-    {
-      id: 3,
-      pollName: '이거먹자',
-      endedAt: new Date(2024, 1, 15),
-    },
-    {
-      id: 2,
-      pollName: '뭐먹지',
-      endedAt: new Date(2024, 1, 13),
-    },
-    {
-      id: 3,
-      pollName: '이거먹자',
-      endedAt: new Date(2024, 1, 15),
-    },
-    {
-      id: 2,
-      pollName: '뭐먹지',
-      endedAt: new Date(2024, 1, 13),
-    },
-    {
-      id: 3,
-      pollName: '이거먹자',
-      endedAt: new Date(2024, 1, 15),
-    },
   ]);
 
   async function getHistories() {
