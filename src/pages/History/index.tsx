@@ -20,6 +20,56 @@ export function HistoryPage() {
       pollName: '이거먹자',
       endedAt: new Date(2024, 1, 15),
     },
+    {
+      id: 2,
+      pollName: '뭐먹지',
+      endedAt: new Date(2024, 1, 13),
+    },
+    {
+      id: 3,
+      pollName: '이거먹자',
+      endedAt: new Date(2024, 1, 15),
+    },
+    {
+      id: 2,
+      pollName: '뭐먹지',
+      endedAt: new Date(2024, 1, 13),
+    },
+    {
+      id: 3,
+      pollName: '이거먹자',
+      endedAt: new Date(2024, 1, 15),
+    },
+    {
+      id: 2,
+      pollName: '뭐먹지',
+      endedAt: new Date(2024, 1, 13),
+    },
+    {
+      id: 3,
+      pollName: '이거먹자',
+      endedAt: new Date(2024, 1, 15),
+    },
+    {
+      id: 2,
+      pollName: '뭐먹지',
+      endedAt: new Date(2024, 1, 13),
+    },
+    {
+      id: 3,
+      pollName: '이거먹자',
+      endedAt: new Date(2024, 1, 15),
+    },
+    {
+      id: 2,
+      pollName: '뭐먹지',
+      endedAt: new Date(2024, 1, 13),
+    },
+    {
+      id: 3,
+      pollName: '이거먹자',
+      endedAt: new Date(2024, 1, 15),
+    },
   ]);
 
   async function getHistories() {
@@ -41,10 +91,10 @@ export function HistoryPage() {
 
   return (
     <Box>
-      <Box paddingX={3} paddingY={5}>
-        <Box paddingX={3} paddingY={3}>
-          <Typography variant="h4">히스토리</Typography>
-        </Box>
+      <Box paddingX={8} paddingY={3}>
+        <Typography variant="h4">히스토리</Typography>
+      </Box>
+      <Box paddingX={8} paddingY={2} sx={{ maxHeight: '70vh', overflowY: 'auto' }}>
         <Grid container spacing={4} paddingX={3}>
           {histories.map((history) => (
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
@@ -53,16 +103,17 @@ export function HistoryPage() {
           ))}
         </Grid>
       </Box>
-      <Button
-        style={{
+      <Box
+        sx={{
           position: 'fixed',
-          bottom: '16px', // 조정 가능한 값
-          right: '16px', // 조정 가능한 값
+          bottom: '16px',
+          right: '16px',
         }}
-        onClick={() => navigate('/')}
       >
-        투표 시작하기
-      </Button>
+        <Button variant="contained" onClick={() => navigate('/')}>
+          투표 시작하기
+        </Button>
+      </Box>
     </Box>
   );
 }
