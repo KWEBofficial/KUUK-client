@@ -2,12 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
-import { Box, Typography, ThemeProvider, Container, CssBaseline, createTheme, Avatar, Button } from '@mui/material';
+import { Box, Typography, Avatar, Button } from '@mui/material';
 
 import { Poll } from '../../models/poll';
 import logo from '../../images/logo192.png';
-
-const defaultTheme = createTheme();
 
 export function GuestLoginPage() {
   const [poll, setPoll] = useState<Poll>({
@@ -54,53 +52,48 @@ export function GuestLoginPage() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
+      <Typography variant="h4">KUUK[꾹]</Typography>
+      <Box padding="20px">
+        <Avatar src={logo} sx={{ width: 76, height: 76 }}></Avatar>
+      </Box>
+      <Typography variant="h5">{poll?.createdUser.lastName}님의</Typography>
+      <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>
+      <Box paddingTop="30px">
+        <Box paddingRight="150px">
+          <Button size="small">회원가입 없이 지금 바로 시작하기</Button>
+        </Box>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100vh',
           }}
         >
-          <Typography variant="h4">KUUK[꾹]</Typography>
-          <Box padding="20px">
-            <Avatar src={logo} sx={{ width: 76, height: 76 }}></Avatar>
-          </Box>
-          <Typography variant="h5">{poll?.createdUser.lastName}님의</Typography>
-          <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>
-          <Box paddingTop="30px">
-            <Box paddingRight="150px">
-              <Button size="small">회원가입 없이 지금 바로 시작하기</Button>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="닉네임"
-                variant="outlined"
-                size="small"
-                sx={{ width: '100%' }}
-                onChange={(e) => setDisplayName(e.target.value)}
-              ></TextField>
-              <Box paddingTop="10px" sx={{ width: '100%' }}>
-                <Button variant="contained" sx={{ width: '100%' }} onClick={() => handleLogin(displayName)}>
-                  투표 참여하기
-                </Button>
-              </Box>
-            </Box>
+          <TextField
+            id="outlined-basic"
+            label="닉네임"
+            variant="outlined"
+            size="small"
+            sx={{ width: '100%' }}
+            onChange={(e) => setDisplayName(e.target.value)}
+          ></TextField>
+          <Box paddingTop="10px" sx={{ width: '100%' }}>
+            <Button variant="contained" sx={{ width: '100%' }} onClick={() => handleLogin(displayName)}>
+              투표 참여하기
+            </Button>
           </Box>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Box>
   );
 }
