@@ -24,7 +24,7 @@ export default function BottomNav() {
           icon={<FormatListBulletedIcon />}
           onClick={() => navigate('/list/21')}
         />
-        <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/register')} />
+        <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/join')} />
       </BottomNavigation>
     </Box>
   );
