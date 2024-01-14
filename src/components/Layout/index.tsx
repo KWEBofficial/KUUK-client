@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import BottomNav from '../BottomNavigation';
 import Header from '../Header';
+import BottomNav from '../BottomNavigation';
 
 /**
  * 이 컴포넌트는 모든 페이지의 레이아웃을 담당합니다.
