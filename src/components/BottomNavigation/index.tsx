@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoginIcon from '@mui/icons-material/Login';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -25,6 +26,7 @@ export default function BottomNav() {
           onClick={() => navigate('/list/21')}
         />
         <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/register')} />
+        <BottomNavigationAction label="게스트 로그인" icon={<LoginIcon />} onClick={() => navigate('/guest/login')} />
       </BottomNavigation>
     </Box>
   );
