@@ -3,8 +3,8 @@ import { ThemeProvider, createTheme } from '@mui/material';
 
 import { RouteComponent } from './route';
 import { Layout } from './components/Layout';
-
 import './App.css';
+import { AuthProvider } from './components/AuthContent';
 
 /**
  * mui에서 제공하는 테마 설정입니다.
@@ -26,9 +26,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Layout>
-          <RouteComponent />
-        </Layout>
+        <AuthProvider>
+          <Layout>
+            <RouteComponent />
+          </Layout>
+        </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

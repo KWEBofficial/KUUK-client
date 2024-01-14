@@ -3,18 +3,21 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material';
 
+import { useAuth } from '../../components/AuthContent';
+
 export function LoginPage() {
   const [inputs, setInputs] = useState({
     username: '',
     password: '',
   });
+  const { login } = useAuth();
   const navigate = useNavigate();
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({ ...inputs, [e.target.id]: e.target.value });
   };
   async function handleLogin() {
     try {
-      // Join post user/join
+      // Join post user/login
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, inputs, {
         headers: {
           'Content-Type': 'application/json',
@@ -24,6 +27,7 @@ export function LoginPage() {
       if (response.status === 200) {
         // create
         window.alert('로그인이 완료되었습니다.');
+        login();
         navigate('/');
       }
     } catch (e) {
