@@ -11,21 +11,30 @@ import { useAuth } from '../AuthContent';
 export default function Header() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
-
   const handleLogin = () => {
     navigate('/login');
   };
-  const handleLogout = async () => {
+  async function handleLogout() {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/user/logout`);
-      window.alert('로그아웃에 성공했습니다');
-      logout();
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/user/logout`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (response.status === 200) {
+        window.alert('로그아웃이 완료되었습니다.');
+        logout();
+        navigate('/');
+      }
     } catch (error) {
-      console.error('로그아웃 실패:', error);
+      window.alert('로그아웃에 실패했습니다.');
     }
-    navigate('/'); // 로그아웃 후 홈페이지로 이동
-  };
-
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
