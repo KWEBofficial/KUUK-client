@@ -9,13 +9,9 @@ import logo from '../../images/logo192.png';
 
 export function GuestLoginPage() {
   const [poll, setPoll] = useState<Poll>({
-    id: 1,
     pollName: '뭐먹지',
     createdUser: {
-      id: 1,
-      firstName: '문',
-      lastName: '정민',
-      age: 24,
+      displayName: '문정민',
     },
   });
   const [displayName, setDisplayName] = useState('');
@@ -23,7 +19,9 @@ export function GuestLoginPage() {
 
   async function getPoll() {
     try {
-      const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/guest/login`);
+      const { data: response, status } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/guest/login?url=http://what2eat.com/invite/Ko8y7`,
+      );
       if (status === 200) {
         setPoll(response);
       } else {
@@ -65,7 +63,7 @@ export function GuestLoginPage() {
       <Box padding="20px">
         <Avatar src={logo} sx={{ width: 76, height: 76 }}></Avatar>
       </Box>
-      <Typography variant="h5">{poll?.createdUser.lastName}님의</Typography>
+      <Typography variant="h5">{poll?.createdUser.displayName}님의</Typography>
       <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>
       <Box paddingTop="30px">
         <Box paddingRight="150px">
