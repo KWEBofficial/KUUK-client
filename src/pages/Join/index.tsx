@@ -53,6 +53,7 @@ export function JoinPage() {
     try {
       // Join post user/join
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/join`, user, {
+        withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
         }, // 요청 header 가 json 타입

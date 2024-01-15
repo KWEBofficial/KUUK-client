@@ -19,6 +19,7 @@ export function LoginPage() {
     try {
       // Join post user/login
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, inputs, {
+        withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
         }, // 요청 header 가 json 타입
