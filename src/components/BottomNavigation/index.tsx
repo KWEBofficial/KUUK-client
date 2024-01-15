@@ -26,7 +26,7 @@ export default function BottomNav() {
           onClick={() => navigate('/list/21')}
         />
         <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/register')} />
-        <BottomNavigationAction label="게스트 로그인" icon={<LoginIcon />} onClick={() => navigate('/guest/login')} />
+        <BottomNavigationAction label="게스트 로그인" icon={<LoginIcon />} onClick={() => navigate('/invite/Ko8y7')} />
       </BottomNavigation>
     </Box>
   );
