@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,7 @@ import { Poll } from '../../models/poll';
 import logo from '../../images/logo192.png';
 
 export function GuestLoginPage() {
+  const { url } = useParams();
   const [poll, setPoll] = useState<Poll>({
     pollName: '뭐먹지',
     createdUser: {
@@ -19,16 +20,15 @@ export function GuestLoginPage() {
 
   async function getPoll() {
     try {
-      const { data: response, status } = await axios.get(
-        `${process.env.REACT_APP_API_URL}/guest/login?url=http://what2eat.com/invite/Ko8y7`,
-      );
+      const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/guest/login/${url}`);
       if (status === 200) {
         setPoll(response);
       } else {
+        alert('투표 정보를 가져오는데 실패했습니다.');
         throw new Error();
       }
     } catch {
-      console.error('유저 정보를 가져오는데 실패했습니다.');
+      alert('투표 정보를 가져오는데 실패했습니다.');
     }
   }
 
