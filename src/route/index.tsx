@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { ResultPage } from '../pages/Result';
 import { RegisterPage } from '../pages/Register';
 import { MainPage } from '../pages/Main';
 import { ListPage } from '../pages/List';
@@ -14,6 +15,7 @@ export function RouteComponent() {
       <Route path="/" element={<MainPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/list/:age" element={<ListPage />} />
+      <Route path="/poll/result/:pollId" element={<ResultPage />} />
     </Routes>
   );
 }
