@@ -11,9 +11,10 @@ export function MainPage() {
    */
   const [user, setUser] = useState<User>({
     id: 0,
-    firstName: '이웹',
-    lastName: '케',
-    age: 21,
+    username: 'userid',
+    displayName: '아무개',
+    password: 'password123',
+    birthdate: new Date(2001, 1, 24),
   });
 
   /**
@@ -74,9 +75,8 @@ export function MainPage() {
       </Box>
       <Box height={40} />
       <Box>
-        <Typography variant="h6">이름: {user.firstName}</Typography>
-        <Typography variant="h6">성: {user.lastName}</Typography>
-        <Typography variant="h6">나이: {user.age}</Typography>
+        <Typography variant="h6">아이디: {user.username}</Typography>
+        <Typography variant="h6">생년월일: {user.birthdate.toLocaleDateString()}</Typography>
       </Box>
     </Box>
   );
