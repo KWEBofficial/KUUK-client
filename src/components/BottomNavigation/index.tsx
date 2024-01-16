@@ -10,6 +10,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import HistoryIcon from '@mui/icons-material/History';
+import LoginIcon from '@mui/icons-material/Login';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -27,6 +28,8 @@ export default function BottomNav() {
         />
         <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/join')} />
         <BottomNavigationAction label="히스토리" icon={<HistoryIcon />} onClick={() => navigate('/history')} />
+        <BottomNavigationAction label="게스트 로그인" icon={<LoginIcon />} onClick={() => navigate('/invite/Ko8y7')} />
+        {/* invite/:url */}
       </BottomNavigation>
     </Box>
   );
