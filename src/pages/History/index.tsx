@@ -11,12 +11,10 @@ export function HistoryPage() {
   const navigate = useNavigate();
   const [histories, setHistories] = useState<History[]>([
     {
-      id: 2,
       pollName: '뭐먹지',
       endedAt: new Date(2024, 1, 13),
     },
     {
-      id: 3,
       pollName: '이거먹자',
       endedAt: new Date(2024, 1, 15),
     },
@@ -24,14 +22,19 @@ export function HistoryPage() {
 
   async function getHistories() {
     try {
-      const { data: historyResponse, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll/history`);
+      const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll/history`, {
+        withCredentials: true,
+      });
       if (status === 200) {
-        setHistories(historyResponse);
+        setHistories(response);
       } else {
         throw new Error();
       }
-    } catch {
+    } catch (e) {
       console.error('히스토리 정보를 가져오는데 실패했습니다.');
+      if (axios.isAxiosError(e)) {
+        window.alert(e.response?.data.message);
+      }
     }
   }
 
@@ -48,7 +51,7 @@ export function HistoryPage() {
         <Grid container spacing={4} paddingX={3}>
           {histories.map((history) => (
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
-              <HistoryCard navDir="/" imgDir={logo} pollName={history.pollName} endedAt={history.endedAt} />
+              <HistoryCard navDir="/" imgDir={logo} pollName={history.pollName} endedAt={new Date(history.endedAt)} />
             </Grid>
           ))}
         </Grid>

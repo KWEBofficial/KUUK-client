@@ -14,6 +14,10 @@ interface HistoryCardProps {
 export default function HistoryCard({ navDir, imgDir, pollName, endedAt }: HistoryCardProps) {
   const navigate = useNavigate();
 
+  function parseDate(date: Date): string {
+    return String(date);
+  }
+
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardActionArea onClick={() => navigate(navDir)}>
@@ -26,9 +30,7 @@ export default function HistoryCard({ navDir, imgDir, pollName, endedAt }: Histo
         />
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography variant="body2"> 투표이름 : {pollName} </Typography>
-          <Typography variant="body2">
-            종료시점 : {String(endedAt.getFullYear())}-{String(endedAt.getMonth())}-{String(endedAt.getDate())}
-          </Typography>
+          <Typography variant="body2">종료시점 : {parseDate(endedAt)}</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
