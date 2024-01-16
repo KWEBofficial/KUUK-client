@@ -1,7 +1,7 @@
-/* 이렇게 글꼴을 웹폰트로 다운받으면, 로컬 컴퓨터에 해당 글꼴이 없더라도 자동으로 다운받아서 적용합니다.(물론 그만큼 성능에는 안 좋습니다.) */
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-family: 'NanumGothic';
+  src: url('../public/fonts/NanumGothic.ttf') format('truetype');
+  src: url('../public/fonts/NanumGothic.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
@@ -9,6 +9,7 @@
 body {
   margin: 0;
   font-family:
+    'NanumGothic',
     'Pretendard-Regular',
     -apple-system,
     BlinkMacSystemFont,
@@ -32,6 +33,7 @@ code {
 * {
   box-sizing: border-box;
   font-family:
+    'NanumGothic',
     'Pretendard-Regular',
     -apple-system,
     BlinkMacSystemFont,

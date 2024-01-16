@@ -12,7 +12,15 @@ import './App.css';
  */
 const theme = createTheme({
   typography: {
-    fontFamily: 'Pretendard-Regular',
+    fontFamily: 'NanumGothic',
+  },
+  palette: {
+    primary: {
+      main: '#FEA82F',
+      light: '#FFC288',
+      dark: '#FA8739',
+      contrastText: '#FCECDD',
+    },
   },
 });
 
