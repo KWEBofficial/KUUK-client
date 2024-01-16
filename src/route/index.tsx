@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import { MainPage } from '../pages/Main';
 import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
+import { InvitePage } from '../pages/Invite';
+import { GuestLoginPage } from '../pages/GuestLogin';
 import { JoinPage } from '../pages/Join';
 
 /**
@@ -14,6 +16,8 @@ export function RouteComponent() {
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/list/:age" element={<ListPage />} />
+      <Route path="/guest/login/:url" element={<GuestLoginPage />} />
+      <Route path="/invite/:url" element={<InvitePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<JoinPage />} />
     </Routes>
