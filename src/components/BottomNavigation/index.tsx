@@ -9,8 +9,8 @@ import Box from '@mui/material/Box';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import HistoryIcon from '@mui/icons-material/History';
 import LoginIcon from '@mui/icons-material/Login';
+import HistoryIcon from '@mui/icons-material/History';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 

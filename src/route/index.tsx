@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import { MainPage } from '../pages/Main';
 import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
-import { HistoryPage } from '../pages/History';
 import { JoinPage } from '../pages/Join';
 import { InvitePage } from '../pages/Invite';
+import { HistoryPage } from '../pages/History';
 import { GuestLoginPage } from '../pages/GuestLogin';
 
 /**
