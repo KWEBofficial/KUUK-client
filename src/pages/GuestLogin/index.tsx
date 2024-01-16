@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import { Box, Typography, Avatar, Button } from '@mui/material';
 
 import { Poll } from '../../models/poll';
-import logo from '../../images/logo192.png';
 
 export function GuestLoginPage() {
   const { url } = useParams();
@@ -79,7 +78,7 @@ export function GuestLoginPage() {
     >
       <Typography variant="h4">KUUK[꾹]</Typography>
       <Box padding="20px">
-        <Avatar src={logo} sx={{ width: 76, height: 76 }}></Avatar>
+        <Avatar src={'/images/don.png'} sx={{ width: 76, height: 76 }}></Avatar>
       </Box>
       <Typography variant="h5">{poll?.createdUser.displayName}님의</Typography>
       <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>
