@@ -15,7 +15,18 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   return (
     <Box display={'flex'} justifyContent={'center'} sx={{ backgroundColor: 'grey' }}>
-      <Box maxWidth={430} width={'100%'} height="100vh">
+      <Box
+        sx={{
+          width: '100%', // 기본 너비
+          height: '100vh', // 전체 뷰포트 높이
+          maxWidth: 1728, // 최대 너비 mac 기준
+          margin: 'auto', // 가운데 정렬
+          '@media (max-width: 600px)': {
+            // 600px 이하의 화면에 대한 스타일
+            maxWidth: '100vw', // 최대 너비를 뷰포트 너비의 100%로 설정
+          },
+        }}
+      >
         <Box height="90%" sx={{ backgroundColor: '#ffffff' }}>
           {children}
         </Box>
