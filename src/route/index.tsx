@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import { MainPage } from '../pages/Main';
 import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
+import { JoinPage } from '../pages/Join';
 import { InvitePage } from '../pages/Invite';
 import { GuestLoginPage } from '../pages/GuestLogin';
-import { JoinPage } from '../pages/Join';
 
 /**
  * 어느 url에 어떤 페이지를 보여줄지 정해주는 컴포넌트입니다.
