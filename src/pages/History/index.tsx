@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Box, Typography, Grid, Button } from '@mui/material';
 
 import History from '../../models/history';
-import logo from '../../images/logo192.png';
 import HistoryCard from '../../components/History';
 
 export function HistoryPage() {
@@ -51,7 +50,12 @@ export function HistoryPage() {
         <Grid container spacing={4} paddingX={3}>
           {histories.map((history) => (
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
-              <HistoryCard navDir="/" imgDir={logo} pollName={history.pollName} endedAt={new Date(history.endedAt)} />
+              <HistoryCard
+                navDir="/"
+                imgDir="/images/don.png"
+                pollName={history.pollName}
+                endedAt={new Date(history.endedAt)}
+              />
             </Grid>
           ))}
         </Grid>
