@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { ResultPage } from '../pages/Result';
 import { MainPage } from '../pages/Main';
 import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
@@ -20,6 +21,7 @@ export function RouteComponent() {
       <Route path="/invite/:url" element={<InvitePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<JoinPage />} />
+      <Route path="/poll/result/:pollId" element={<ResultPage />} />
     </Routes>
   );
 }
