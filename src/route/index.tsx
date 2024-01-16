@@ -7,6 +7,7 @@ import { ListPage } from '../pages/List';
 import { JoinPage } from '../pages/Join';
 import { InvitePage } from '../pages/Invite';
 import { GuestLoginPage } from '../pages/GuestLogin';
+import { FilterPage } from '../pages/Filter';
 
 /**
  * 어느 url에 어떤 페이지를 보여줄지 정해주는 컴포넌트입니다.
@@ -21,6 +22,7 @@ export function RouteComponent() {
       <Route path="/invite/:url" element={<InvitePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<JoinPage />} />
+      <Route path="/poll" element={<FilterPage />} />
       <Route path="/poll/result/:pollId" element={<ResultPage />} />
     </Routes>
   );
