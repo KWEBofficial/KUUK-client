@@ -7,7 +7,23 @@ export function MainPage() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        maxHeight: '650px',
+        overflowY: 'scroll',
+        '&::-webkit-scrollbar': {
+          width: '5px', // 스크롤바 너비 설정
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'transparent', // 스크롤바 썸을 투명하게 설정
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          borderRadius: '5px', // 마우스 호버 시 스크롤바 썸 색상 설정
+        },
+      }}
+    >
       <Grid container spacing={0}>
         {/* 좌측 서비스 설명 */}
         <Grid item xs={12} md={6}>
@@ -71,7 +87,7 @@ export function MainPage() {
 
         {/* 우측 버튼 두 개 */}
         <Grid item xs={12} md={6}>
-          <Box
+          <Stack
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -80,6 +96,12 @@ export function MainPage() {
               height: '100%',
             }}
           >
+            <Box>
+              <Typography>꾹이란?</Typography>
+              <Typography>
+                식당을 고르는 것을 어려워하는 여러분꼐, 점심 메뉴를 고르다 의가 상할 뻔한 당신에게 필요한 서비스 KUUK
+              </Typography>
+            </Box>
             <Button
               variant="contained"
               color="primary"
@@ -92,7 +114,7 @@ export function MainPage() {
             <Button variant="contained" color="secondary" size="large">
               이전 투표 둘러보기
             </Button>
-          </Box>
+          </Stack>
         </Grid>
       </Grid>
     </Box>
