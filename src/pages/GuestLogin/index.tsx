@@ -20,15 +20,21 @@ export function GuestLoginPage() {
 
   async function getPoll() {
     try {
-      const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/guest/login/${url}`);
+      const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/guest/login/${url}`, {
+        withCredentials: true,
+      });
       if (status === 200) {
         setPoll(response);
       } else {
-        alert('투표 정보를 가져오는데 실패했습니다.');
-        throw new Error();
+        window.alert('투표 정보를 가져오는데 실패했습니다.');
+        navigate('/');
       }
-    } catch {
-      alert('투표 정보를 가져오는데 실패했습니다.');
+    } catch (e) {
+      window.alert('투표 정보를 가져오는데 실패했습니다.');
+      if (axios.isAxiosError(e)) {
+        window.alert(e.response?.data.message);
+      }
+      navigate('/');
     }
   }
 
@@ -36,18 +42,30 @@ export function GuestLoginPage() {
     getPoll();
   }, []);
 
-  const handleLogin = async (input: string) => {
+  async function handleLogin(input: string) {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/guest/login`, input);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/guest/login`,
+        { displayName: input },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         window.alert('로그인이 완료되었습니다.');
         navigate('/');
       }
     } catch (e) {
       window.alert('로그인에 실패했습니다.');
+      if (axios.isAxiosError(e)) {
+        window.alert(e.response?.data.message);
+      }
     }
-  };
+  }
 
   return (
     <Box
