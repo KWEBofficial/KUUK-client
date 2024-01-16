@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 
+import Header from '../Header';
 import BottomNav from '../BottomNavigation';
 
 /**
@@ -27,6 +28,7 @@ export function Layout({ children }: LayoutProps) {
           },
         }}
       >
+        <Header />
         <Box height="90%" sx={{ backgroundColor: '#ffffff' }}>
           {children}
         </Box>
