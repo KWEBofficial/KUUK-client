@@ -15,7 +15,12 @@ export default function HistoryCard({ navDir, imgDir, pollName, endedAt }: Histo
   const navigate = useNavigate();
 
   function parseDate(date: Date): string {
-    return String(date);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    const sec = date.getSeconds();
+    return `${month}월 ${day}일 ${hour}:${min}:${sec}`;
   }
 
   return (
