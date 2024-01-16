@@ -3,18 +3,23 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material';
 
+import { User } from '../../models/user';
+import BirthdateInput from '../../components/BirthdateInput';
+
 /**
  * 유저 생성 페이지입니다.
  * 회원가입을 위한 정보를 입력받습니다.
  * 회원가입 버튼을 누르면 백엔드 서버에 회원가입 요청을 보냅니다.
  */
-export function RegisterPage() {
-  const [input, setInput] = useState({
-    lastName: '',
-    firstName: '',
-    age: 0,
+export function JoinPage() {
+  const [user, setUser] = useState<User>({
+    id: 0,
+    username: '',
+    displayName: '',
+    password: '',
+    birthdate: new Date(),
   });
-
+  // 페이지 이동을 위한 함수 회원가입 성공 이후 로그인 페이지
   const navigate = useNavigate();
 
   /**
@@ -28,12 +33,14 @@ export function RegisterPage() {
      */
     const value = event.target.type === 'number' ? Number(event.target.value) : event.target.value;
 
-    setInput({
-      ...input,
+    setUser({
+      ...user,
       [event.target.id]: value,
     });
   }
-
+  const handleBirthdateChange = (birthdate: Date) => {
+    setUser({ ...user, birthdate });
+  };
   /**
    * 회원가입 버튼을 클릭하면 발생하는 함수입니다.
    * 백엔드 서버에 회원가입 요청을 보냅니다.
@@ -44,15 +51,18 @@ export function RegisterPage() {
    */
   async function handleRegister() {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user`, input, {
+      // Join post user/join
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/join`, user, {
+        withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-        },
+        }, // 요청 header 가 json 타입
       });
 
       if (response.status === 201) {
+        // create
         window.alert('회원가입이 완료되었습니다.');
-        navigate('/');
+        navigate('/login');
       }
     } catch (e) {
       window.alert('회원가입에 실패했습니다.');
@@ -68,29 +78,54 @@ export function RegisterPage() {
   return (
     <Box padding={2} paddingTop={4}>
       <Box marginBottom={4} textAlign={'center'}>
-        <Typography variant="h4">회원 가입</Typography>
+        <Typography variant="h4">회원가입</Typography>
       </Box>
       <Box>
         <Box marginY={2}>
           <Divider />
         </Box>
-        <Stack spacing={2}>
-          <TextField required id="lastName" label="성" onChange={handleInput} />
-          <TextField required id="firstName" label="이름" onChange={handleInput} />
-          <TextField required id="age" label="나이" type="number" onChange={handleInput} />
+        <Stack style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} spacing={2}>
+          <TextField
+            sx={{ width: 406, marginTop: 10 }}
+            required
+            id="username"
+            label="아이디"
+            onChange={handleInput}
+            variant="outlined"
+          />
+          <TextField
+            sx={{ width: 406 }}
+            required
+            id="password"
+            label="비밀번호"
+            type="password"
+            onChange={handleInput}
+            variant="outlined"
+          />
+          <TextField
+            sx={{ width: 406 }}
+            required
+            id="confirmPassword"
+            label="비밀번호 확인"
+            type="password"
+            onChange={handleInput}
+            variant="outlined"
+          />
+          <TextField
+            sx={{ width: 406 }}
+            required
+            id="displayName"
+            label="닉네임"
+            onChange={handleInput}
+            variant="outlined"
+          />
+          <BirthdateInput onChange={handleBirthdateChange} />
         </Stack>
       </Box>
-      <Box paddingY={6}>
-        <Stack spacing={3} direction="row" justifyContent={'center'}>
-          {/* navigate(-1)은 뒤로가기와 같습니다. */}
-          {/* 함수가 간단하다면 () => handler() 형태로 간단하게 넣을 수 있습니다. */}
-          <Button variant="outlined" color="primary" onClick={() => navigate(-1)}>
-            이전
-          </Button>
-          <Button variant="contained" color="primary" onClick={handleRegister}>
-            회원 가입
-          </Button>
-        </Stack>
+      <Box paddingY={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Button sx={{ width: 406, height: 66 }} variant="contained" color="primary" onClick={handleRegister}>
+          회원 가입
+        </Button>
       </Box>
     </Box>
   );

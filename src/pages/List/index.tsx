@@ -46,7 +46,13 @@ export function ListPage() {
       <Box mt={4}>
         <Stack spacing={4}>
           {users.map((user) => (
-            <UserCard key={user.id} firstName={user.firstName} lastName={user.lastName} age={user.age} />
+            <UserCard
+              key={user.id}
+              username={user.username}
+              displayName={user.displayName}
+              password={user.password}
+              birthdate={user.birthdate}
+            />
           ))}
         </Stack>
       </Box>
@@ -59,18 +65,18 @@ export function ListPage() {
  * interface를 사용해서 props의 타입을 정해줄 수 있습니다.
  */
 interface UserCardProps {
-  firstName: string;
-  lastName: string;
-  age: number;
+  username: string;
+  displayName: string;
+  password: string;
+  birthdate: Date;
 }
-function UserCard({ firstName, lastName, age }: UserCardProps) {
+function UserCard({ username, displayName, birthdate }: UserCardProps) {
   return (
     <Card>
       <Box padding={2}>
-        <Typography variant="h6">
-          이름: {lastName} {firstName}
-        </Typography>
-        <Typography variant="h6">나이: {age}</Typography>
+        <Typography variant="h6">아이디: {username}</Typography>
+        <Typography variant="h6">닉네임:{displayName}</Typography>
+        <Typography variant="h6">생년월일: {birthdate.toDateString()}</Typography>
       </Box>
     </Card>
   );
