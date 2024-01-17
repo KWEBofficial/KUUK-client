@@ -5,7 +5,6 @@ import { Theme, useTheme } from '@mui/material/styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
 
-// import RestaurantList from '../../components/RestaurantList';
 import RestaurantCard from '../../components/RestaurantCard';
 import CustomButton from '../../components/CustomButton';
 
@@ -37,6 +36,8 @@ export function FilterPage() {
   const [checkedLocations, setCheckedLocations] = useState<string[]>([]);
   const [checkedCategories, setCheckedCategories] = useState<string[]>([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState<boolean[]>([]);
+
   const [pollName, setPollName] = useState('');
 
   async function getLocationsAndCategories() {
@@ -105,11 +106,18 @@ export function FilterPage() {
 
   async function makePoll() {
     try {
+      const selectedKeys = selectedRestaurants.reduce((acc: number[], isChecked, index) => {
+        if (isChecked) {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
+
       const { data: response, status } = await axios.post(
         `${process.env.REACT_APP_API_URL}/poll/restaurant`,
         {
           pollName,
-          selectedRestaurants: restaurants,
+          selectedRestaurants: selectedKeys,
         },
         {
           withCredentials: true,
@@ -125,7 +133,7 @@ export function FilterPage() {
         throw new Error();
       }
     } catch {
-      console.error('post axios가 안돼요.');
+      console.error('/poll/restaurant 접근에 문제가 있습니다.');
     }
   }
 
@@ -133,7 +141,7 @@ export function FilterPage() {
     try {
       await makePoll();
     } catch (error) {
-      window.alert('투표창으로 안넘어가요..');
+      console.error('투표창 생성에 문제가 발생하였습니다.');
     }
   }
 
@@ -203,7 +211,11 @@ export function FilterPage() {
           </Select>
         </FormControl>
         <Box paddingX={3} paddingY={5}>
-          <RestaurantCard restaurants={restaurants} />
+          <RestaurantCard
+            restaurants={restaurants}
+            selectedRestaurants={selectedRestaurants}
+            setSelectedRestaurants={setSelectedRestaurants}
+          />
           <Box
             sx={{
               display: 'flex',

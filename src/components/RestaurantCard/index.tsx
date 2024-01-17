@@ -20,6 +20,8 @@ import { Restaurant } from '../../models/restaurant';
 
 interface RestaurantsProps {
   restaurants: Restaurant[];
+  selectedRestaurants: boolean[];
+  setSelectedRestaurants: (newSelectedRestaurants: boolean[]) => void;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -37,8 +39,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function RestaurantCard({ restaurants }: RestaurantsProps) {
-  const [selectedRestaurants, setSelectedRestaurants] = useState<boolean[]>(new Array(restaurants.length).fill(false));
+export default function RestaurantCard({ restaurants, selectedRestaurants, setSelectedRestaurants }: RestaurantsProps) {
   const [expandedCards, setExpandedCards] = useState<boolean[]>(new Array(restaurants.length).fill(false));
 
   const handleToggle = (index: number) => {
@@ -47,6 +48,7 @@ export default function RestaurantCard({ restaurants }: RestaurantsProps) {
 
     setSelectedRestaurants(updatedSelection);
   };
+
   const handleExpandClick = (index: number) => {
     const updatedExpanded = [...expandedCards];
     updatedExpanded[index] = !updatedExpanded[index];
@@ -115,7 +117,6 @@ export default function RestaurantCard({ restaurants }: RestaurantsProps) {
             </Collapse>
           </Card>
         ))}
-        ;
       </Grid>
     </Box>
   );
