@@ -11,6 +11,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import PollIcon from '@mui/icons-material/Poll';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
+import HistoryIcon from '@mui/icons-material/History';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -27,6 +28,7 @@ export default function BottomNav() {
           onClick={() => navigate('/list/21')}
         />
         <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/join')} />
+        <BottomNavigationAction label="히스토리" icon={<HistoryIcon />} onClick={() => navigate('/history')} />
         <BottomNavigationAction label="게스트 로그인" icon={<LoginIcon />} onClick={() => navigate('/invite/Ko8y7')} />
         {/* invite/:url */}
         <BottomNavigationAction label="투표 결과" icon={<PollIcon />} onClick={() => navigate('/poll/result/1')} />

@@ -6,6 +6,7 @@ import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
 import { JoinPage } from '../pages/Join';
 import { InvitePage } from '../pages/Invite';
+import { HistoryPage } from '../pages/History';
 import { GuestLoginPage } from '../pages/GuestLogin';
 import { FilterPage } from '../pages/Filter';
 import { DonatePage } from '../pages/Donate';
@@ -19,6 +20,7 @@ export function RouteComponent() {
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/list/:age" element={<ListPage />} />
+      <Route path="/history" element={<HistoryPage />} />
       <Route path="/guest/login/:url" element={<GuestLoginPage />} />
       <Route path="/invite/:url" element={<InvitePage />} />
       <Route path="/login" element={<LoginPage />} />

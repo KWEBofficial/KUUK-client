@@ -5,4 +5,5 @@ interface User {
 export interface Poll {
   pollName: string;
   createdUser: User;
+  endedAt: Date;
 }

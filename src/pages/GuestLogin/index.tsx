@@ -8,12 +8,7 @@ import { Poll } from '../../models/poll';
 
 export function GuestLoginPage() {
   const { url } = useParams();
-  const [poll, setPoll] = useState<Poll>({
-    pollName: '뭐먹지',
-    createdUser: {
-      displayName: '문정민',
-    },
-  });
+  const [poll, setPoll] = useState<Poll>();
   const [displayName, setDisplayName] = useState('');
   const navigate = useNavigate();
 
