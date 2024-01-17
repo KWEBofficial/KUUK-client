@@ -8,16 +8,7 @@ import HistoryCard from '../../components/History';
 
 export function HistoryPage() {
   const navigate = useNavigate();
-  const [histories, setHistories] = useState<History[]>([
-    {
-      pollName: '뭐먹지',
-      endedAt: new Date(2024, 1, 13),
-    },
-    {
-      pollName: '이거먹자',
-      endedAt: new Date(2024, 1, 15),
-    },
-  ]);
+  const [histories, setHistories] = useState<History[]>([]);
 
   async function getHistories() {
     try {
@@ -52,9 +43,9 @@ export function HistoryPage() {
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
               <HistoryCard
                 navDir="/"
-                imgDir="/images/don.png"
-                pollName={history.pollName}
-                endedAt={new Date(history.endedAt)}
+                imgDir={history.resultImgDir}
+                pollName={history.poll.pollName}
+                endedAt={new Date(history.poll.endedAt)}
               />
             </Grid>
           ))}
