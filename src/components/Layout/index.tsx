@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 
 import Header from '../Header';
+import Footer from '../Footer';
 import BottomNav from '../BottomNavigation';
 
 /**
@@ -33,6 +34,7 @@ export function Layout({ children }: LayoutProps) {
           {children}
         </Box>
         <BottomNav />
+        <Footer />
       </Box>
     </Box>
   );
