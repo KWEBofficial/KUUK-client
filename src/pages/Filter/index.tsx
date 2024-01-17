@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Theme, useTheme } from '@mui/material/styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Button, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import { Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
 
-import Restaurants from '../../components/RestaurantList';
+// import RestaurantList from '../../components/RestaurantList';
+import RestaurantCard from '../../components/RestaurantCard';
+import CustomButton from '../../components/CustomButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,6 +28,8 @@ function getStyles(name: string, filterName: readonly string[], theme: Theme) {
 }
 
 export function FilterPage() {
+  const navigate = useNavigate();
+
   const [locationsAndCategories, setLocationsAndCategories] = useState({
     locations: [],
     categories: [],
@@ -32,6 +37,7 @@ export function FilterPage() {
   const [checkedLocations, setCheckedLocations] = useState<string[]>([]);
   const [checkedCategories, setCheckedCategories] = useState<string[]>([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [pollName, setPollName] = useState('');
 
   async function getLocationsAndCategories() {
     try {
@@ -90,6 +96,46 @@ export function FilterPage() {
     } = event;
     setCheckedCategories(typeof value === 'string' ? value.split(',') : value);
   };
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event;
+    setPollName(value);
+  };
+
+  async function makePoll() {
+    try {
+      const { data: response, status } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/poll/restaurant`,
+        {
+          pollName,
+          selectedRestaurants: restaurants,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (status === 201) {
+        navigate(`/poll/${response}`);
+      } else {
+        throw new Error();
+      }
+    } catch {
+      console.error('post axios가 안돼요.');
+    }
+  }
+
+  async function goToVote() {
+    try {
+      await makePoll();
+    } catch (error) {
+      window.alert('투표창으로 안넘어가요..');
+    }
+  }
 
   return (
     <div>
@@ -103,8 +149,7 @@ export function FilterPage() {
         }}
       >
         <Box sx={{ marginTop: '3%', width: '60%' }}>
-          <Input placeholder="투표방 이름을 설정하세요. " size="medium" />
-          <Button sx={{ marginleft: '3%' }}>설정</Button>
+          <Input placeholder="투표방 이름을 설정하세요." size="medium" value={pollName} onChange={handleInputChange} />
         </Box>
         <FormControl sx={{ m: 1, width: '60%' }}>
           <InputLabel id="demo-multiple-chip-label">Location</InputLabel>
@@ -158,14 +203,14 @@ export function FilterPage() {
           </Select>
         </FormControl>
         <Box paddingX={3} paddingY={5}>
-          <Restaurants restaurants={restaurants} />
+          <RestaurantCard restaurants={restaurants} />
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'right',
             }}
           >
-            <Button>투표 시작하기</Button>
+            <CustomButton text="투표 시작하기" onClick={goToVote} />
           </Box>
         </Box>
       </Box>
