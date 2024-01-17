@@ -3,7 +3,7 @@ import axios from 'axios';
 import Button from '@mui/material/Button'; // Import Button component from @mui/material package
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar'; // Import AppBar component from @mui/material package
-import { Toolbar, Typography } from '@mui/material';
+import { Toolbar } from '@mui/material';
 
 import SideBar from '../Sidebar';
 import { useAuth } from '../AuthContent';
@@ -40,10 +40,24 @@ export default function Header() {
       <AppBar position="static" sx={{ backgroundColor: '#FEA82F' }}>
         <Toolbar>
           <SideBar />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            KUUK[꾹!]
-          </Typography>
-          <Button variant="outlined" color="inherit" onClick={isLoggedIn ? handleLogout : handleLogin}>
+          <Button
+            disableElevation
+            onClick={() => navigate('/')}
+            sx={{
+              backgroundImage: 'url("/logo/logoKor.png")',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              height: '39px',
+              width: '118px',
+            }}
+          ></Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={isLoggedIn ? handleLogout : handleLogin}
+            sx={{ marginLeft: 'auto' }}
+          >
             {isLoggedIn ? 'Logout' : 'Login'}
           </Button>
         </Toolbar>
