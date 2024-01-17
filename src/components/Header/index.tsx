@@ -37,7 +37,7 @@ export default function Header() {
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#FEA82F' }}>
+      <AppBar position="static" sx={{ backgroundColor: 'primary' }}>
         <Toolbar>
           <SideBar />
           <Button
@@ -48,8 +48,9 @@ export default function Header() {
               backgroundSize: 'contain',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              height: '39px',
+              height: '30px',
               width: '118px',
+              marginRight: 'auto',
             }}
           ></Button>
           <Button
