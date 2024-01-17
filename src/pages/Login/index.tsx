@@ -65,11 +65,14 @@ export function LoginPage() {
           />
         </Stack>
       </Box>
-      <Box paddingY={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Stack spacing={2} paddingY={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Button sx={{ width: 406, height: 66 }} variant="contained" color="primary" onClick={handleLogin}>
           로그인
         </Button>
-      </Box>
+        <Button sx={{ width: 406, height: 66 }} variant="contained" color="primary" onClick={() => navigate('/join')}>
+          회원가입
+        </Button>
+      </Stack>
     </Box>
   );
 }
