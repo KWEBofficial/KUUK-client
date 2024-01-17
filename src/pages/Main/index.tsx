@@ -103,9 +103,8 @@ export function MainPage() {
               <Typography marginBottom={1} variant="h3" fontWeight="bold">
                 꾹이란?
               </Typography>
-              <Typography>
-                식당을 고르는 것을 어려워하는 여러분께, 점심 메뉴를 고르다 의 상할 뻔한 당신에게 필요한 서비스 KUUK
-              </Typography>
+              <Typography>꾹은 고려대학교 학생들을 위한 식당 투표 서비스입니다.</Typography>
+              <Typography>꾹을 통해 간편한 투표 생성 및 링크 공유를 통한 참여 기능을 체험하세요.</Typography>
             </Box>
             <Stack spacing={2}>
               <CustomButton text="투표방 생성하기" onClick={() => navigate('/poll')} />
