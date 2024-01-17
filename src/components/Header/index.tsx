@@ -49,7 +49,6 @@ export default function Header() {
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               height: '30px',
-              width: '118px',
               marginRight: 'auto',
             }}
           ></Button>
