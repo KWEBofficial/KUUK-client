@@ -3,13 +3,13 @@ import { Paper } from '@mui/material';
 
 interface CustomBubbleProps {
   children?: React.ReactNode;
-  tailPosition?: string; // 꼬리의 위치
+  tailPosition?: string;
   padding?: number;
-  width?: string | number; // 말풍선의 너비
-  height?: string | number; // 말풍선의 높이
-  tailFlip?: boolean; // 꼬리 뒤집기 여부
+  width?: string | number;
+  height?: string | number;
+  tailFlip?: boolean;
   backgroundColor?: string;
-  textAlign?: 'left' | 'right' | 'center'; // 배경 색상
+  textAlign?: 'left' | 'right' | 'center';
   textColor?: string;
   fontWeight?: number | 'bold' | 'normal' | 'bolder' | 'lighter';
 }
