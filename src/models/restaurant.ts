@@ -8,11 +8,18 @@ interface Category {
   categoryName: string;
 }
 
+interface Menu {
+  id: number;
+  menuName: string;
+  price: string;
+}
+
 export interface Restaurant {
   id: number;
   restaurantName: string;
   location: Location;
   categories: Category[];
-  img_dir: string;
+  menus: Menu[];
+  imgDir: string;
   description: string;
 }

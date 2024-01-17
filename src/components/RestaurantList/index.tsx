@@ -69,7 +69,7 @@ export default function RestaurantList({ restaurants }: RestaurantsProps) {
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt={`Restaurant near you - ${restaurant.restaurantName}`}
-              src={restaurant.img_dir}
+              src={restaurant.imgDir}
             />
 
             <Box
