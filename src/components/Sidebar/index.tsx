@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -19,6 +20,10 @@ export default function Sidbar() {
     right: false,
   });
 
+  const navigate = useNavigate();
+
+  const functions = [() => navigate('/history'), () => navigate('/poll'), () => navigate('/donate')];
+
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
@@ -29,6 +34,7 @@ export default function Sidbar() {
 
     setState({ ...state, [anchor]: open });
   };
+
   const list = (anchor: Anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -37,10 +43,13 @@ export default function Sidbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List sx={{ mt: 5 }}>
-        {['마이페이지', '투표방 생성하기', '개발자에게 커피사주기'].map((text) => (
+        {['마이페이지', '투표방 생성하기', '개발자에게 커피사주기'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemText primary={<Typography style={{ fontWeight: 800 }}>{text}</Typography>} />
+              <ListItemText
+                primary={<Typography style={{ fontWeight: 800 }}>{text}</Typography>}
+                onClick={functions[index]}
+              />
             </ListItemButton>
           </ListItem>
         ))}
