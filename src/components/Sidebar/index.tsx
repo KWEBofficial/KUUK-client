@@ -66,14 +66,7 @@ export default function Sidbar() {
     <div>
       {(['left'] as const).map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton
-            onClick={toggleDrawer(anchor, true)}
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-able="menu"
-            sx={{ mr: 2 }}
-          >
+          <IconButton onClick={toggleDrawer(anchor, true)} size="large" edge="start" color="inherit" aria-able="menu">
             <MenuIcon />
           </IconButton>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
