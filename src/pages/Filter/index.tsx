@@ -8,7 +8,6 @@ import { Fab, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput
 import NavigationIcon from '@mui/icons-material/Navigation';
 
 import RestaurantCard from '../../components/RestaurantCard';
-// import CustomButton from '../../components/CustomButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -177,8 +176,10 @@ export function FilterPage() {
             alignItems: 'center',
           }}
         >
-          <Typography marginRight={1.5}>투표방 이름을 설정하세요: </Typography>
-          <Input placeholder="투표방 이름을 설정하세요." size="medium" value={pollName} onChange={handleInputChange} />
+          <Typography variant="h6" marginRight={1.5}>
+            투표방 이름을 설정하세요✨ :{' '}
+          </Typography>
+          <Input placeholder="투표방 이름" size="medium" value={pollName} onChange={handleInputChange} />
         </Box>
         <FormControl sx={{ m: 1, width: '60%' }}>
           <InputLabel id="location">Location</InputLabel>
@@ -233,7 +234,7 @@ export function FilterPage() {
         </FormControl>
         <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 20, right: 20 }} onClick={goToVote}>
           <Fab variant="extended" size="medium" color="primary">
-            <NavigationIcon sx={{ mr: 1 }} />
+            <NavigationIcon sx={{ transform: 'rotate(90deg)', mr: 1 }} />
             투표 시작하기
           </Fab>
         </Box>

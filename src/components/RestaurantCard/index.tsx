@@ -13,6 +13,7 @@ import {
   IconButton,
   Typography,
   Checkbox,
+  Tooltip,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -115,14 +116,16 @@ export default function RestaurantCard({ restaurants, selectedRestaurants, setSe
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <ExpandMore
-                expand={expandedCards[restaurant.id]}
-                onClick={() => handleExpandClick(restaurant.id)}
-                aria-expanded={expandedCards[restaurant.id]}
-                aria-label={`show more for ${restaurant.restaurantName}`}
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
+              <Tooltip title="메뉴보기" arrow>
+                <ExpandMore
+                  expand={expandedCards[restaurant.id]}
+                  onClick={() => handleExpandClick(restaurant.id)}
+                  aria-expanded={expandedCards[restaurant.id]}
+                  aria-label={`show more for ${restaurant.restaurantName}`}
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </Tooltip>
             </CardActions>
             <Collapse in={expandedCards[restaurant.id]} timeout="auto" unmountOnExit>
               <CardContent>
