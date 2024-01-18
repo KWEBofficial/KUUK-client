@@ -4,11 +4,10 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Theme, useTheme } from '@mui/material/styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Fab, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import { Fab, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput, Typography } from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
 import RestaurantCard from '../../components/RestaurantCard';
-// import CustomButton from '../../components/CustomButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -40,7 +39,7 @@ export function FilterPage() {
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState<boolean[]>([]);
 
-  const [pollName, setPollName] = useState('');
+  const [pollName, setPollName] = useState('오늘 뭐먹지?');
 
   async function getLocationsAndCategories() {
     try {
@@ -125,6 +124,15 @@ export function FilterPage() {
         return acc;
       }, []);
 
+      if (!pollName) {
+        toast.error('투표 이름을 설정해주세요');
+        return;
+      }
+      if (!selectedKeys || selectedKeys.length === 0) {
+        toast.error('식당을 최소 한 개 선택해주세요');
+        return;
+      }
+
       const { data: response, status } = await axios.post(
         `${process.env.REACT_APP_API_URL}/poll/restaurant`,
         {
@@ -168,8 +176,19 @@ export function FilterPage() {
           justifyContent: 'center',
         }}
       >
-        <Box sx={{ marginTop: '3%', width: '60%' }}>
-          <Input placeholder="투표방 이름을 설정하세요." size="medium" value={pollName} onChange={handleInputChange} />
+        <Box
+          sx={{
+            marginTop: '3%',
+            width: '60%',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h6" marginRight={1.5}>
+            투표방 이름을 설정하세요✨ :{' '}
+          </Typography>
+          <Input placeholder="투표방 이름" size="medium" value={pollName} onChange={handleInputChange} />
         </Box>
         <FormControl sx={{ m: 1, width: '60%' }}>
           <InputLabel id="location">Location</InputLabel>
@@ -224,7 +243,7 @@ export function FilterPage() {
         </FormControl>
         <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 20, right: 20 }} onClick={goToVote}>
           <Fab variant="extended" size="medium" color="primary">
-            <NavigationIcon sx={{ mr: 1 }} />
+            <NavigationIcon sx={{ transform: 'rotate(90deg)', mr: 1 }} />
             투표 시작하기
           </Fab>
         </Box>

@@ -13,6 +13,7 @@ import {
   IconButton,
   Typography,
   Checkbox,
+  Tooltip,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -58,7 +59,26 @@ export default function RestaurantCard({ restaurants, selectedRestaurants, setSe
 
   return (
     <Box>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{ justifyContent: 'center' }}>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        sx={{
+          justifyContent: 'center',
+          height: '55vh',
+          overflow: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '5px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'transparent',
+          },
+          '&:hover::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            borderRadius: '5px',
+          },
+        }}
+      >
         {restaurants.map((restaurant) => (
           <Card key={restaurant.id} sx={{ maxWidth: 345, width: 300, margin: '1%' }}>
             <Checkbox
@@ -96,14 +116,16 @@ export default function RestaurantCard({ restaurants, selectedRestaurants, setSe
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <ExpandMore
-                expand={expandedCards[restaurant.id]}
-                onClick={() => handleExpandClick(restaurant.id)}
-                aria-expanded={expandedCards[restaurant.id]}
-                aria-label={`show more for ${restaurant.restaurantName}`}
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
+              <Tooltip title="메뉴보기" arrow>
+                <ExpandMore
+                  expand={expandedCards[restaurant.id]}
+                  onClick={() => handleExpandClick(restaurant.id)}
+                  aria-expanded={expandedCards[restaurant.id]}
+                  aria-label={`show more for ${restaurant.restaurantName}`}
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </Tooltip>
             </CardActions>
             <Collapse in={expandedCards[restaurant.id]} timeout="auto" unmountOnExit>
               <CardContent>
