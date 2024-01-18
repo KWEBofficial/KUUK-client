@@ -2,9 +2,10 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material';
+import { Box, Divider, Stack, TextField, Typography } from '@mui/material';
 
 import { User } from '../../models/user';
+import CustomButton from '../../components/CustomButton';
 import BirthdateInput from '../../components/BirthdateInput';
 
 export function JoinPage() {
@@ -45,17 +46,12 @@ export function JoinPage() {
       toast.error('회원가입에 실패했습니다.');
     }
   }
-
-  /**
-   * TextField 컴포넌트는 HTML input 태그를 감싼 컴포넌트입니다.
-   * onChange에 함수를 넣어주면, input 태그의 값이 변경될 때마다(한 글자 입력할 때마다) 함수가 실행됩니다.
-   * 함수의 이름만 써야 합니다. handleInput() 이렇게 쓰면 안됩니다.
-   * handleInput함수에 event 객체를 자동으로 넣어서 실행합니다.
-   */
   return (
     <Box padding={2} paddingTop={4}>
       <Box marginBottom={4} textAlign={'center'}>
-        <Typography variant="h4">회원가입</Typography>
+        <Typography variant="h4" fontWeight={300}>
+          회원가입
+        </Typography>
       </Box>
       <Box>
         <Box marginY={2}>
@@ -100,9 +96,7 @@ export function JoinPage() {
         </Stack>
       </Box>
       <Box paddingY={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Button sx={{ width: 406, height: 66 }} variant="contained" color="primary" onClick={handleRegister}>
-          회원 가입
-        </Button>
+        <CustomButton text="회원가입" onClick={handleRegister} width={406} height={66} />
       </Box>
     </Box>
   );

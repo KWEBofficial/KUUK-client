@@ -57,7 +57,7 @@ export default function Header() {
             variant="outlined"
             color="inherit"
             onClick={isLoggedIn ? handleLogout : handleLogin}
-            sx={{ marginLeft: 'auto' }}
+            sx={{ marginLeft: 'auto', fontWeight: 'bold' }}
           >
             {isLoggedIn ? 'Logout' : 'Login'}
           </Button>

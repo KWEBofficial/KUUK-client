@@ -2,8 +2,9 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Divider, Stack, TextField, Typography } from '@mui/material';
+import { Box, Divider, Stack, TextField, Typography } from '@mui/material';
 
+import CustomButton from '../../components/CustomButton';
 import { useAuth } from '../../components/AuthContent';
 
 export function LoginPage() {
@@ -40,7 +41,9 @@ export function LoginPage() {
   return (
     <Box padding={2} paddingTop={4}>
       <Box marginBottom={4} textAlign={'center'}>
-        <Typography variant="h4">KUUK[꾹]</Typography>
+        <Typography variant="h2" fontFamily={'neurimboGothicRegular'} color="primary.dark">
+          꾹[KUUK]
+        </Typography>
       </Box>
       <Box>
         <Box marginY={2}>
@@ -67,12 +70,8 @@ export function LoginPage() {
         </Stack>
       </Box>
       <Stack spacing={2} paddingY={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Button sx={{ width: 406, height: 66 }} variant="contained" color="primary" onClick={handleLogin}>
-          로그인
-        </Button>
-        <Button sx={{ width: 406, height: 66 }} variant="contained" color="primary" onClick={() => navigate('/join')}>
-          회원가입
-        </Button>
+        <CustomButton text="로그인" onClick={handleLogin} width={406} height={66} />
+        <CustomButton text="회원가입" onClick={() => navigate('/join')} width={406} height={66} />
       </Stack>
     </Box>
   );
