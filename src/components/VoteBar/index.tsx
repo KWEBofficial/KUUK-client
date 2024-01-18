@@ -70,8 +70,6 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
         toast.error('이미 투표하셨습니다.');
         return;
       }
-      const confirm = toast.info('투표 하시겠습니까?');
-      if (!confirm) return;
       const votePromises = extendedCandidates.map(async (candidate) => {
         // selectedCandidates 배열에 현재 후보(candidate)의 id가 포함되어 있는지 확인
         const isSelectedCandidate = props.selectedCandidates.some((selected) => selected.id === candidate.id);
