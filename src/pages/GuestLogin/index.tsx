@@ -55,7 +55,7 @@ export function GuestLoginPage() {
 
       if (response.status === 200) {
         window.alert('로그인이 완료되었습니다.');
-        navigate('/');
+        navigate(`/poll/${poll?.id}`);
       }
     } catch (e) {
       window.alert('로그인에 실패했습니다.');
