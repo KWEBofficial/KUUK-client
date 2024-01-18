@@ -11,6 +11,10 @@ export function HistoryPage() {
   const navigate = useNavigate();
   const [histories, setHistories] = useState<History[]>([]);
 
+  function checkPollEnd(history: History) {
+    return history.poll.createdAt !== history.poll.endedAt;
+  }
+
   async function getHistories() {
     try {
       const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll/history`, {
@@ -51,9 +55,9 @@ export function HistoryPage() {
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
               <HistoryCard
                 navDir="/"
-                imgDir={history.resultImgDir}
+                imgDir={checkPollEnd(history) ? history.resultImgDir : '/logo/투표냥이.png'}
                 pollName={history.poll.pollName}
-                endedAt={new Date(history.poll.endedAt)}
+                endedAt={checkPollEnd(history) ? new Date(history.poll.endedAt) : null}
               />
             </Grid>
           ))}
