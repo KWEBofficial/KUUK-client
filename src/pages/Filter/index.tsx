@@ -49,9 +49,16 @@ export function FilterPage() {
           'Content-Type': 'application/json',
         },
       });
-      if (userResponse.status !== 200) {
+      const guestResponse = await axios.get(`${process.env.REACT_APP_API_URL}/guest/status`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (userResponse.status !== 200 || guestResponse.status === 200) {
         navigate('/');
-        toast.error('로그인 상태가 아닙니다');
+        toast.error('투표창에 접근할 수 없습니다. 로그인 상태를 확인해주세요');
       }
       const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll`);
       if (status === 200) {

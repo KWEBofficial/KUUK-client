@@ -55,7 +55,7 @@ export function GuestLoginPage() {
       );
 
       if (response.status === 200) {
-        toast.error('로그인이 완료되었습니다.');
+        toast.success('로그인이 완료되었습니다.');
         navigate(`/poll/${poll?.id}`);
       }
     } catch (e) {
