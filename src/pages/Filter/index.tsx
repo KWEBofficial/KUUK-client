@@ -124,6 +124,15 @@ export function FilterPage() {
         return acc;
       }, []);
 
+      if (!pollName) {
+        toast.error('투표 이름을 설정해주세요');
+        return;
+      }
+      if (!selectedKeys || selectedKeys.length === 0) {
+        toast.error('식당을 최소 한 개 선택해주세요');
+        return;
+      }
+
       const { data: response, status } = await axios.post(
         `${process.env.REACT_APP_API_URL}/poll/restaurant`,
         {
