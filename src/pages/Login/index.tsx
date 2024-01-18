@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
@@ -27,12 +28,12 @@ export function LoginPage() {
 
       if (response.status === 200) {
         // create
-        window.alert('로그인이 완료되었습니다.');
+        toast.success('로그인에 성공했습니다!!');
         login();
         navigate('/');
       }
     } catch (e) {
-      window.alert('로그인에 실패했습니다.');
+      toast.error('로그인에 실패했습니다!');
     }
   }
 

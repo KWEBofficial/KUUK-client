@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@mui/material/Button'; // Import Button component from @mui/material package
@@ -27,12 +28,12 @@ export default function Header() {
         },
       );
       if (response.status === 200) {
-        window.alert('로그아웃이 완료되었습니다.');
+        toast.success('로그아웃이 완료되었습니다.');
         logout();
         navigate('/');
       }
     } catch (error) {
-      window.alert('로그아웃에 실패했습니다.');
+      toast.error('로그아웃에 실패했습니다.');
     }
   }
   return (
