@@ -4,36 +4,11 @@ export function DonatePage() {
   return (
     <Box padding={5}>
       <Box marginTop={10} paddingX={10} display={'flex'} justifyContent={'center'}>
-        <IntroduceCard
-          imgDir="/img/1.jpg"
-          name="김수현"
-          roles={['프론트엔드', '백엔드', '디자인']}
-          backgroundColor="white"
-        />
-        <IntroduceCard
-          imgDir="/img/2.jpg"
-          name="문정민"
-          roles={['프론트엔드', '백엔드', '디자인']}
-          backgroundColor="white"
-        />
-        <IntroduceCard
-          imgDir="/img/3.jpg"
-          name="박보건"
-          roles={['프론트엔드', '백엔드', '디자인']}
-          backgroundColor="white"
-        />
-        <IntroduceCard
-          imgDir="/img/4.jpg"
-          name="정연승"
-          roles={['프론트엔드', '백엔드', '디자인']}
-          backgroundColor="white"
-        />
-        <IntroduceCard
-          imgDir="/img/5.jpg"
-          name="정혜민"
-          roles={['프론트엔드', '백엔드', '디자인']}
-          backgroundColor="white"
-        />
+        <IntroduceCard imgDir="/dev/1.jpg" name="김수현" roles={['프론트엔드', '백엔드', '디자인']} />
+        <IntroduceCard imgDir="/dev/2.jpg" name="문정민" roles={['프론트엔드', '백엔드', '디자인']} />
+        <IntroduceCard imgDir="/dev/3.jpg" name="박보건" roles={['프론트엔드', '백엔드', '디자인']} />
+        <IntroduceCard imgDir="/dev/4.jpg" name="정연승" roles={['프론트엔드', '백엔드', '디자인']} />
+        <IntroduceCard imgDir="/dev/5.jpg" name="정혜민" roles={['프론트엔드', '백엔드', '디자인']} />
       </Box>
     </Box>
   );
@@ -43,18 +18,11 @@ interface IntroduceCardProps {
   imgDir: string;
   name: string;
   roles: string[];
-  backgroundColor: string;
 }
 
-function IntroduceCard({ imgDir, name, roles, backgroundColor }: IntroduceCardProps) {
+function IntroduceCard({ imgDir, name, roles }: IntroduceCardProps) {
   return (
-    <Box
-      width={'20%'}
-      display={'flex'}
-      flexDirection={'column'}
-      alignItems={'center'}
-      sx={{ backgroundColor: { backgroundColor } }}
-    >
+    <Box width={'20%'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <Avatar alt={name} src={imgDir} sx={{ width: 120, height: 120 }} />
       <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'100%'} height={'70px'}>
         <Typography variant="h6" align="center">
