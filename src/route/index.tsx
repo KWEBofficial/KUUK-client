@@ -28,6 +28,7 @@ export function RouteComponent() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<JoinPage />} />
       <Route path="/poll" element={<FilterPage />} />
+      <Route path="/poll/:pollId" element={<PollPage />} />
       <Route path="/poll/result/:pollId" element={<ResultPage />} />
       <Route path="/donate" element={<DonatePage />} />
       <Route path="/term" element={<TermPage />} />
