@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { TermPage } from '../pages/Term';
 import { ResultPage } from '../pages/Result';
+import { PrivacyPage } from '../pages/Privacy';
 import { MainPage } from '../pages/Main';
 import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
@@ -28,6 +30,8 @@ export function RouteComponent() {
       <Route path="/poll" element={<FilterPage />} />
       <Route path="/poll/result/:pollId" element={<ResultPage />} />
       <Route path="/donate" element={<DonatePage />} />
+      <Route path="/term" element={<TermPage />} />
+      <Route path="/privacy" element={<PrivacyPage />} />
     </Routes>
   );
 }
