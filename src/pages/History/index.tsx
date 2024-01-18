@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid, Fab } from '@mui/material';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 import History from '../../models/history';
 import HistoryCard from '../../components/History';
@@ -59,15 +60,13 @@ export function HistoryPage() {
         </Grid>
       </Box>
       <Box
-        sx={{
-          position: 'fixed',
-          bottom: '16px',
-          right: '16px',
-        }}
+        sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 20, right: 20 }}
+        onClick={() => navigate('/poll')}
       >
-        <Button variant="contained" onClick={() => navigate('/poll')}>
+        <Fab variant="extended" size="medium" color="primary">
+          <NavigationIcon sx={{ mr: 1 }} />
           투표 시작하기
-        </Button>
+        </Fab>
       </Box>
     </Box>
   );
