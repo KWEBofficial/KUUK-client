@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -14,11 +15,11 @@ export function InvitePage() {
         console.log('투표 정보를 가져오는데 성공했습니다.');
         navigate(`/guest/login/${url}`);
       } else {
-        alert('투표 정보를 가져오는데 실패했습니다.');
+        toast.error('투표 정보를 가져오는데 실패했습니다.');
         navigate('/');
       }
     } catch {
-      alert('투표 정보를 가져오는데 실패했습니다.');
+      toast.error('투표 정보를 가져오는데 실패했습니다.');
       navigate('/');
     }
   }
