@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
@@ -43,6 +44,16 @@ export function FilterPage() {
 
   async function getLocationsAndCategories() {
     try {
+      const userResponse = await axios.get(`${process.env.REACT_APP_API_URL}/user/status`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (userResponse.status !== 200) {
+        navigate('/');
+        toast.error('로그인 상태가 아닙니다');
+      }
       const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll`);
       if (status === 200) {
         setLocationsAndCategories(response);
