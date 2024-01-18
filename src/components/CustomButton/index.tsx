@@ -9,7 +9,7 @@ interface CustomButtonProps {
 
 export default function CustomButton({ text, onClick, width, height }: CustomButtonProps) {
   return (
-    <Button variant="contained" color="primary" onClick={onClick} sx={{ width, height }}>
+    <Button variant="contained" color="primary" onClick={onClick} sx={{ fontWeight: 'bold', width, height }}>
       {text}
     </Button>
   );
