@@ -76,11 +76,13 @@ export function GuestLoginPage() {
         height: '100vh',
       }}
     >
-      <Typography variant="h4">KUUK[꾹]</Typography>
+      <Typography fontSize="50pt" fontFamily="neurimboGothicRegular" color="primary">
+        꾹[KUUK]!
+      </Typography>
       <Box padding="20px">
         <Avatar src={'/images/don.png'} sx={{ width: 76, height: 76 }}></Avatar>
       </Box>
-      <Typography variant="h5">{poll?.createdUser.displayName}님의</Typography>
+      <Typography variant="h5">{poll?.createdUser.displayName} 님의</Typography>
       <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>
       <Box paddingTop="30px">
         <Box paddingRight="150px">
