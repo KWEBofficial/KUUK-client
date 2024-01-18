@@ -23,6 +23,12 @@ const theme = createTheme({
       dark: '#FA8739',
       contrastText: '#FCECDD',
     },
+    secondary: {
+      main: '#ffffff',
+      light: '#FFC288',
+      dark: '#ededed',
+      contrastText: '#FEA82F',
+    },
   },
 });
 

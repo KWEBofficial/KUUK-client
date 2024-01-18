@@ -143,9 +143,16 @@ export function MainPage() {
               <Typography>꾹은 고려대학교 학생들을 위한 식당 투표 서비스입니다.</Typography>
               <Typography>꾹을 통해 간편한 투표 생성 및 링크 공유를 통한 참여 기능을 체험하세요.</Typography>
             </Box>
-            <Stack spacing={2}>
-              <CustomButton text="투표방 생성하기" onClick={() => navigate('/poll')} />
-              <CustomButton text="이전 투표 둘러보기" onClick={() => navigate('/history')} />
+            <Stack spacing={2} marginBottom={10}>
+              <CustomButton width={200} height={80} text="투표방 생성하기" onClick={() => navigate('/poll')} />
+              <CustomButton
+                border="1px solid primary.main"
+                color="secondary"
+                width={200}
+                height={80}
+                text="이전 투표 둘러보기"
+                onClick={() => navigate('/history')}
+              />
             </Stack>
           </Stack>
         </Grid>
