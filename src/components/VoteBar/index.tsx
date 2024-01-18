@@ -51,10 +51,26 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
     initializeCandidates();
   }, [props.candidates]);
 
+  // 이미 투표했는지 여부 확인하는 state
+  const [isVoted, setIsVoted] = useState<boolean>(false);
+
+  useEffect(() => {
+    const savedIsVoted = localStorage.getItem(`isVoted_${pollId}`);
+    if (savedIsVoted) {
+      setIsVoted(JSON.parse(savedIsVoted));
+    }
+  }, []);
+
   // 현재 extendedCandidates들 중 props로 받은 selectedCandidates내에 있는 (즉 내가 선택한) candidate에 대해서 vote table을 생성하고
   // VoteCount를 최신화하기
   const userVote = async () => {
     try {
+      if (isVoted) {
+        window.alert('이미 투표하셨습니다.');
+        return;
+      }
+      const confirm = window.confirm('투표 하시겠습니까?');
+      if (!confirm) return;
       const votePromises = extendedCandidates.map(async (candidate) => {
         // selectedCandidates 배열에 현재 후보(candidate)의 id가 포함되어 있는지 확인
         const isSelectedCandidate = props.selectedCandidates.some((selected) => selected.id === candidate.id);
@@ -90,10 +106,27 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
           return matchingUpdate ? { ...c, voteCount: matchingUpdate.voteCount } : c;
         }),
       );
+      localStorage.setItem(`isVoted_${pollId}`, JSON.stringify(true));
+      setIsVoted(true);
     } catch (error) {
       window.alert('투표 요청에 실패했습니다.');
     }
   };
+
+  /** const updateVoteCount = async () => {
+    const result = extendedCandidates.map(async (c) => {
+      const currentVoteCount = await getVoteCount(c.id);
+      if(c.voteCount !== currentVoteCount) 
+    })
+  } */
+
+  /** useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log('와우');
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []); */
 
   return (
     <div>
