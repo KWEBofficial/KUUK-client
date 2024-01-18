@@ -48,7 +48,7 @@ function App() {
           </Layout>
         </AuthProvider>
       </BrowserRouter>
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
     </ThemeProvider>
   );
 }
