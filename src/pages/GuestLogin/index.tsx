@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -20,17 +21,17 @@ export function GuestLoginPage() {
       if (status === 200) {
         setPoll(response);
         if (response.createdAt !== response.endedAt) {
-          window.alert('투표가 종료되었습니다.');
+          toast.error('투표가 종료되었습니다.');
           navigate(`/poll/result/${response.id}`);
         }
       } else {
-        window.alert('투표 정보를 가져오는데 실패했습니다.');
+        toast.error('투표 정보를 가져오는데 실패했습니다.');
         navigate('/');
       }
     } catch (e) {
-      window.alert('투표 정보를 가져오는데 실패했습니다.');
+      toast.error('투표 정보를 가져오는데 실패했습니다.');
       if (axios.isAxiosError(e)) {
-        window.alert(e.response?.data.message);
+        toast.error(e.response?.data.message);
       }
       navigate('/');
     }
@@ -54,13 +55,13 @@ export function GuestLoginPage() {
       );
 
       if (response.status === 200) {
-        window.alert('로그인이 완료되었습니다.');
+        toast.error('로그인이 완료되었습니다.');
         navigate(`/poll/${poll?.id}`);
       }
     } catch (e) {
-      window.alert('로그인에 실패했습니다.');
+      toast.error('로그인에 실패했습니다.');
       if (axios.isAxiosError(e)) {
-        window.alert(e.response?.data.message);
+        toast.error(e.response?.data.message);
       }
     }
   }
@@ -75,11 +76,13 @@ export function GuestLoginPage() {
         height: '100vh',
       }}
     >
-      <Typography variant="h4">KUUK[꾹]</Typography>
+      <Typography fontSize="50pt" fontFamily="neurimboGothicRegular" color="primary">
+        꾹[KUUK]!
+      </Typography>
       <Box padding="20px">
         <Avatar src={'/images/don.png'} sx={{ width: 76, height: 76 }}></Avatar>
       </Box>
-      <Typography variant="h5">{poll?.createdUser.displayName}님의</Typography>
+      <Typography variant="h5">{poll?.createdUser.displayName} 님의</Typography>
       <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>
       <Box paddingTop="30px">
         <Box paddingRight="150px">
