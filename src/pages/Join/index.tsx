@@ -92,7 +92,16 @@ export function JoinPage() {
             onChange={handleInput}
             variant="outlined"
           />
-          <BirthdateInput onChange={handleBirthdateChange} />
+          <Box>
+            <Typography
+              variant="body1"
+              color="GrayText"
+              style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: 2 }}
+            >
+              생년월일*
+            </Typography>
+            <BirthdateInput onChange={handleBirthdateChange} />{' '}
+          </Box>
         </Stack>
       </Box>
       <Box paddingY={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
