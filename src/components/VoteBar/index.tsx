@@ -112,20 +112,36 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
     }
   };
 
-  /** const updateVoteCount = async () => {
-    const result = extendedCandidates.map(async (c) => {
-      const currentVoteCount = await getVoteCount(c.id);
-      if(c.voteCount !== currentVoteCount) 
-    })
-  } */
-
-  /** useEffect(() => {
-    const intervalId = setInterval(() => {
-      console.log('와우');
+  // VoteCount가 달라진 경우 extendedCandidates에 새로 추가
+  const updateVoteCount = async () => {
+    try {
+      const updatedCandidates = await Promise.all(
+        extendedCandidates.map(async (candidate) => {
+          const currentVoteCount = candidate.voteCount;
+          const newVoteCount = await getVoteCount(candidate.id);
+          return { candidate, currentVoteCount, newVoteCount };
+        }),
+      );
+      setExtendedCandidates((prevCandidates) =>
+        prevCandidates.map((c) => {
+          const matchingUpdate = updatedCandidates.find((updated) => updated.candidate.id === c.id);
+          return matchingUpdate && matchingUpdate.currentVoteCount !== matchingUpdate.newVoteCount
+            ? { ...c, voteCount: matchingUpdate.newVoteCount }
+            : c;
+        }),
+      );
+    } catch (error) {
+      window.alert('투표 정보를 가져오는데 실패했습니다.');
+    }
+  };
+  // 1초마다 extendedCandidates 변화를 감지해서 투표 바 자동으로 변경해주기
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      await updateVoteCount();
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []); */
+  }, [extendedCandidates]);
 
   return (
     <div>
