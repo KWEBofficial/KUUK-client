@@ -48,7 +48,7 @@ export function HistoryPage() {
         },
       );
       if (status === 200) {
-        toast.error(response);
+        toast.success(response);
         window.location.reload();
       }
     } catch (e) {
