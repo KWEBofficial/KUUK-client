@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid, Fab } from '@mui/material';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 import History from '../../models/history';
 import HistoryCard from '../../components/History';
@@ -9,6 +10,10 @@ import HistoryCard from '../../components/History';
 export function HistoryPage() {
   const navigate = useNavigate();
   const [histories, setHistories] = useState<History[]>([]);
+
+  function checkPollEnd(history: History) {
+    return history.poll.createdAt !== history.poll.endedAt;
+  }
 
   async function getHistories() {
     try {
@@ -36,8 +41,12 @@ export function HistoryPage() {
 
   return (
     <Box>
-      <Box paddingX={8} paddingY={3}>
+      <Box paddingX={8} paddingY={3} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h4">히스토리</Typography>
+        <Fab variant="extended" size="medium" color="primary" onClick={() => navigate('/poll')}>
+          <NavigationIcon sx={{ transform: 'rotate(90deg)', mr: 1 }} />
+          투표 시작하기
+        </Fab>
       </Box>
       {histories.length === 0 && (
         <Box padding="40px">
@@ -49,25 +58,14 @@ export function HistoryPage() {
           {histories.map((history) => (
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
               <HistoryCard
-                navDir="/"
-                imgDir={history.resultImgDir}
+                navDir={checkPollEnd(history) ? `/poll/result/${history.poll.id}` : `/poll/${history.poll.id}`}
+                imgDir={checkPollEnd(history) ? history.resultImgDir : '/logo/투표냥이.png'}
                 pollName={history.poll.pollName}
-                endedAt={new Date(history.poll.endedAt)}
+                endedAt={checkPollEnd(history) ? new Date(history.poll.endedAt) : null}
               />
             </Grid>
           ))}
         </Grid>
-      </Box>
-      <Box
-        sx={{
-          position: 'fixed',
-          bottom: '16px',
-          right: '16px',
-        }}
-      >
-        <Button variant="contained" onClick={() => navigate('/poll')}>
-          투표 시작하기
-        </Button>
       </Box>
     </Box>
   );
