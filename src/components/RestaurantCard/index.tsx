@@ -109,7 +109,12 @@ export default function RestaurantCard({ restaurants, selectedRestaurants, setSe
                 </Box>
               }
             />
-            <CardMedia component="img" height="194" image={restaurant.imgDir} alt={restaurant.restaurantName} />
+            <CardMedia
+              component="img"
+              height="194"
+              image={restaurant.imgDir.replace(/^./, '')}
+              alt={restaurant.restaurantName}
+            />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {restaurant.description}
