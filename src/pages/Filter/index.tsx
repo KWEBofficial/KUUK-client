@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Theme, useTheme } from '@mui/material/styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Button, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import { Fab, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
-import Restaurants from '../../components/RestaurantList';
+import RestaurantCard from '../../components/RestaurantCard';
+// import CustomButton from '../../components/CustomButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,6 +28,8 @@ function getStyles(name: string, filterName: readonly string[], theme: Theme) {
 }
 
 export function FilterPage() {
+  const navigate = useNavigate();
+
   const [locationsAndCategories, setLocationsAndCategories] = useState({
     locations: [],
     categories: [],
@@ -32,6 +37,9 @@ export function FilterPage() {
   const [checkedLocations, setCheckedLocations] = useState<string[]>([]);
   const [checkedCategories, setCheckedCategories] = useState<string[]>([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState<boolean[]>([]);
+
+  const [pollName, setPollName] = useState('');
 
   async function getLocationsAndCategories() {
     try {
@@ -90,6 +98,53 @@ export function FilterPage() {
     } = event;
     setCheckedCategories(typeof value === 'string' ? value.split(',') : value);
   };
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event;
+    setPollName(value);
+  };
+
+  async function makePoll() {
+    try {
+      const selectedKeys = selectedRestaurants.reduce((acc: number[], isChecked, index) => {
+        if (isChecked) {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
+
+      const { data: response, status } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/poll/restaurant`,
+        {
+          pollName,
+          selectedRestaurants: selectedKeys,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (status === 201) {
+        navigate(`/poll/${response}`);
+      } else {
+        throw new Error();
+      }
+    } catch {
+      console.error('/poll/restaurant 접근에 문제가 있습니다.');
+    }
+  }
+
+  async function goToVote() {
+    try {
+      await makePoll();
+    } catch (error) {
+      console.error('투표창 생성에 문제가 발생하였습니다.');
+    }
+  }
 
   return (
     <div>
@@ -97,24 +152,23 @@ export function FilterPage() {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px',
+          gap: '5px',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
         <Box sx={{ marginTop: '3%', width: '60%' }}>
-          <Input placeholder="투표방 이름을 설정하세요. " size="medium" />
-          <Button sx={{ marginleft: '3%' }}>설정</Button>
+          <Input placeholder="투표방 이름을 설정하세요." size="medium" value={pollName} onChange={handleInputChange} />
         </Box>
         <FormControl sx={{ m: 1, width: '60%' }}>
-          <InputLabel id="demo-multiple-chip-label">Location</InputLabel>
+          <InputLabel id="location">Location</InputLabel>
           <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
+            labelId="location"
+            id="location"
             multiple
             value={checkedLocations}
             onChange={handleChangeLocation}
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            input={<OutlinedInput id="location" label="Chip" />}
             renderValue={(selected) => (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                 {selected.map((value) => (
@@ -133,14 +187,14 @@ export function FilterPage() {
         </FormControl>
 
         <FormControl sx={{ m: 1, width: '60%' }}>
-          <InputLabel id="demo-multiple-chip-label">Category</InputLabel>
+          <InputLabel id="category">Category</InputLabel>
           <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
+            labelId="category"
+            id="category"
             multiple
             value={checkedCategories}
             onChange={handleChangeCategory}
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            input={<OutlinedInput id="category" label="Chip" />}
             renderValue={(selected) => (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                 {selected.map((value) => (
@@ -157,16 +211,18 @@ export function FilterPage() {
             ))}
           </Select>
         </FormControl>
+        <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 20, right: 20 }} onClick={goToVote}>
+          <Fab variant="extended" size="medium" color="primary">
+            <NavigationIcon sx={{ mr: 1 }} />
+            투표 시작하기
+          </Fab>
+        </Box>
         <Box paddingX={3} paddingY={5}>
-          <Restaurants restaurants={restaurants} />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'right',
-            }}
-          >
-            <Button>투표 시작하기</Button>
-          </Box>
+          <RestaurantCard
+            restaurants={restaurants}
+            selectedRestaurants={selectedRestaurants}
+            setSelectedRestaurants={setSelectedRestaurants}
+          />
         </Box>
       </Box>
     </div>
