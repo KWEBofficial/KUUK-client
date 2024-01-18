@@ -49,14 +49,14 @@ export function FilterPage() {
           'Content-Type': 'application/json',
         },
       });
-      const guestResponse = await axios.get(`${process.env.REACT_APP_API_URL}/guest/status`, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      // const guestResponse = await axios.get(`${process.env.REACT_APP_API_URL}/guest/status`, {
+      //   withCredentials: true,
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
 
-      if (userResponse.status !== 200 || guestResponse.status === 200) {
+      if (userResponse.status !== 200) {
         navigate('/');
         toast.error('투표창에 접근할 수 없습니다. 로그인 후 이용해주세요.');
       }
