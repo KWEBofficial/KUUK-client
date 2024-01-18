@@ -41,8 +41,12 @@ export function HistoryPage() {
 
   return (
     <Box>
-      <Box paddingX={8} paddingY={3}>
+      <Box paddingX={8} paddingY={3} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h4">히스토리</Typography>
+        <Fab variant="extended" size="medium" color="primary" onClick={() => navigate('/poll')}>
+          <NavigationIcon sx={{ transform: 'rotate(90deg)', mr: 1 }} />
+          투표 시작하기
+        </Fab>
       </Box>
       {histories.length === 0 && (
         <Box padding="40px">
@@ -62,15 +66,6 @@ export function HistoryPage() {
             </Grid>
           ))}
         </Grid>
-      </Box>
-      <Box
-        sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 20, right: 20 }}
-        onClick={() => navigate('/poll')}
-      >
-        <Fab variant="extended" size="medium" color="primary">
-          <NavigationIcon sx={{ mr: 1 }} />
-          투표 시작하기
-        </Fab>
       </Box>
     </Box>
   );
