@@ -1,5 +1,7 @@
 import { Avatar, Box, Typography } from '@mui/material';
 
+import CustomButton from '../../components/CustomButton';
+
 export function DonatePage() {
   return (
     <Box padding={5}>
@@ -52,7 +54,7 @@ function IntroduceCard({ imgDir, name, roles }: IntroduceCardProps) {
       </Box>
       <Box marginY={4}>
         <a href="https://gift.kakao.com/product/5417137" target="_blank">
-          <button>후원하기</button>
+          <CustomButton text="후원하기" onClick={() => 1} />
         </a>
       </Box>
     </Box>
