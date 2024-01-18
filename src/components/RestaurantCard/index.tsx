@@ -58,7 +58,26 @@ export default function RestaurantCard({ restaurants, selectedRestaurants, setSe
 
   return (
     <Box>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{ justifyContent: 'center' }}>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        sx={{
+          justifyContent: 'center',
+          height: '55vh',
+          overflow: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '5px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'transparent',
+          },
+          '&:hover::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            borderRadius: '5px',
+          },
+        }}
+      >
         {restaurants.map((restaurant) => (
           <Card key={restaurant.id} sx={{ maxWidth: 345, width: 300, margin: '1%' }}>
             <Checkbox

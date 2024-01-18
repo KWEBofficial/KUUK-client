@@ -4,7 +4,7 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Theme, useTheme } from '@mui/material/styles';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Fab, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import { Fab, Box, Chip, FormControl, Input, InputLabel, MenuItem, OutlinedInput, Typography } from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
 import RestaurantCard from '../../components/RestaurantCard';
@@ -40,7 +40,7 @@ export function FilterPage() {
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState<boolean[]>([]);
 
-  const [pollName, setPollName] = useState('');
+  const [pollName, setPollName] = useState('오늘 뭐먹지?');
 
   async function getLocationsAndCategories() {
     try {
@@ -168,7 +168,16 @@ export function FilterPage() {
           justifyContent: 'center',
         }}
       >
-        <Box sx={{ marginTop: '3%', width: '60%' }}>
+        <Box
+          sx={{
+            marginTop: '3%',
+            width: '60%',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Typography marginRight={1.5}>투표방 이름을 설정하세요: </Typography>
           <Input placeholder="투표방 이름을 설정하세요." size="medium" value={pollName} onChange={handleInputChange} />
         </Box>
         <FormControl sx={{ m: 1, width: '60%' }}>
