@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Grid, Stack } from '@mui/material';
+import TagIcon from '@mui/icons-material/Tag';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import CustomButton from '../../components/CustomButton';
 import { CustomBubble } from '../../components/CustomBubble';
@@ -30,17 +33,24 @@ export function MainPage() {
       <Grid container spacing={0}>
         {/* 좌측 서비스 설명 */}
         <Grid item xs={12} md={6}>
-          <Stack spacing={3}>
-            <Typography textAlign="center" variant="h4" gutterBottom paddingTop={3}>
-              당신의 선택으로 KUUK[꾹]!
+          <Stack sx={{ width: '700px', maxWidth: '1732px' }} spacing={2}>
+            <Typography
+              fontFamily={'neurimboGothicRegular'}
+              textAlign="center"
+              variant="h1"
+              gutterBottom
+              color="primary.dark"
+            >
+              꾹[KUUK]!
             </Typography>
             <Box
-              pl="130px"
-              pr="130px"
               sx={{
+                pl: '21%',
+                pr: '21%',
                 '& > * + *': {
                   marginTop: 2,
                 },
+                mb: 2,
               }}
             >
               <Box display="flex" justifyContent={'flex-start'}>
@@ -65,7 +75,7 @@ export function MainPage() {
               </Box>
               <Box display="flex" justifyContent={'flex-end'}>
                 <CustomBubble textAlign="right" tailPosition="85%" backgroundColor="primary.light">
-                  A식당은 어때?
+                  꾹꾹식당은 어때?
                 </CustomBubble>
               </Box>
               <Box display="flex" justifyContent={'flex-start'}>
@@ -78,13 +88,37 @@ export function MainPage() {
                   그냥 우리 밥 먹지 말까?
                 </CustomBubble>
               </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 1,
+                  backgroundColor: 'lightgray',
+                }}
+              >
+                <AddCircleOutlineIcon />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: 1,
+                    ml: 1,
+                    width: '400px',
+                    border: '1px solid #ccc',
+                    borderRadius: '10pc',
+                    backgroundColor: '#fff',
+                    spacing: 1,
+                  }}
+                >
+                  <Typography variant="body1" sx={{ width: '280px', flexGrow: 1, ml: 1, color: 'lightgray' }}>
+                    그러는 게 좋겠...
+                  </Typography>
+                  <SentimentSatisfiedAltIcon sx={{ color: 'primary.light' }} />
+                  <TagIcon sx={{ color: 'primary.light' }} />
+                </Box>
+              </Box>
             </Box>
-            <Typography textAlign="center" variant="h6" gutterBottom>
-              선택은 민주주의로! 우리는 배가 고프다!
-            </Typography>
-            <Typography textAlign="center" variant="h6" gutterBottom>
-              간편하게 식당을 고르고 투표방을 만드세요!
-            </Typography>
           </Stack>
         </Grid>
 
@@ -97,18 +131,28 @@ export function MainPage() {
               alignItems: 'center',
               justifyContent: 'center',
               height: '100%',
+              width: '700px',
+              maxWidth: '1732px',
             }}
           >
             <Box padding={10}>
-              <Typography marginBottom={1} variant="h3" fontWeight="bold">
-                꾹이란?
+              <Typography>
+                <span style={{ fontSize: '60pt', fontFamily: 'neurimboGothicRegular' }}>꾹</span>
+                <span style={{ fontSize: '25pt' }}>이란?</span>
               </Typography>
               <Typography>꾹은 고려대학교 학생들을 위한 식당 투표 서비스입니다.</Typography>
               <Typography>꾹을 통해 간편한 투표 생성 및 링크 공유를 통한 참여 기능을 체험하세요.</Typography>
             </Box>
-            <Stack spacing={2}>
-              <CustomButton text="투표방 생성하기" onClick={() => navigate('/poll')} />
-              <CustomButton text="이전 투표 둘러보기" onClick={() => navigate('/history')} />
+            <Stack spacing={2} marginBottom={10}>
+              <CustomButton width={200} height={80} text="투표방 생성하기" onClick={() => navigate('/poll')} />
+              <CustomButton
+                border="1px solid primary.main"
+                color="secondary"
+                width={200}
+                height={80}
+                text="이전 투표 둘러보기"
+                onClick={() => navigate('/history')}
+              />
             </Stack>
           </Stack>
         </Grid>

@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 
 import Header from '../Header';
 import Footer from '../Footer';
-import BottomNav from '../BottomNavigation';
 
 /**
  * 이 컴포넌트는 모든 페이지의 레이아웃을 담당합니다.
@@ -33,7 +32,6 @@ export function Layout({ children }: LayoutProps) {
         <Box height="90%" sx={{ backgroundColor: '#ffffff' }}>
           {children}
         </Box>
-        <BottomNav />
         <Footer />
       </Box>
     </Box>

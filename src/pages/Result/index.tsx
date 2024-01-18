@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, ImageList, ImageListItem, ImageListItemBar, Typography } from '@mui/material';
+import { Box, ImageList, ImageListItem, Typography } from '@mui/material';
 
 import { ResultRestaurant } from '../../models/resultRestaurant';
 import CustomButton from '../../components/CustomButton';
@@ -56,12 +56,12 @@ export function ResultPage() {
             당신의 선택! {voteCount}표
           </Typography>
         </Box>
-        <Box paddingY={'20px'}>
+        <Box paddingY={'20px'} width={'100%'}>
           <ImageList variant="masonry" cols={3} gap={20} sx={{ margin: 0 }}>
             {restaurants.map((restaurant) => (
               <ImageListItem key={restaurant.id}>
                 <img src={restaurant.imgDir} alt={restaurant.restaurantName} loading="lazy" />
-                <ImageListItemBar position="below" title={`${restaurant.restaurantName}: ${restaurant.description}`} />
+                <Typography>{`${restaurant.restaurantName}: ${restaurant.description}`}</Typography>
               </ImageListItem>
             ))}
           </ImageList>

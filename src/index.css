@@ -6,6 +6,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'neurimboGothicRegular';
+  src: url('../public/fonts/neurimboGothicRegular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   font-family:
@@ -34,6 +41,7 @@ code {
   box-sizing: border-box;
   font-family:
     'NanumGothic',
+    'neurimboGothicRegular',
     'Pretendard-Regular',
     -apple-system,
     BlinkMacSystemFont,
