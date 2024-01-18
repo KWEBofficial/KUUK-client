@@ -58,7 +58,7 @@ export function HistoryPage() {
           {histories.map((history) => (
             <Grid item xs={6} sm={4} md={3} lg={2} xl={1.5}>
               <HistoryCard
-                navDir="/"
+                navDir={checkPollEnd(history) ? `/poll/result/${history.poll.id}` : `/poll/${history.poll.id}`}
                 imgDir={checkPollEnd(history) ? history.resultImgDir : '/logo/투표냥이.png'}
                 pollName={history.poll.pollName}
                 endedAt={checkPollEnd(history) ? new Date(history.poll.endedAt) : null}
