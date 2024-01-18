@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -66,11 +67,9 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
   const userVote = async () => {
     try {
       if (isVoted) {
-        window.alert('이미 투표하셨습니다.');
+        toast.error('이미 투표하셨습니다.');
         return;
       }
-      const confirm = window.confirm('투표 하시겠습니까?');
-      if (!confirm) return;
       const votePromises = extendedCandidates.map(async (candidate) => {
         // selectedCandidates 배열에 현재 후보(candidate)의 id가 포함되어 있는지 확인
         const isSelectedCandidate = props.selectedCandidates.some((selected) => selected.id === candidate.id);
@@ -109,7 +108,7 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
       localStorage.setItem(`isVoted_${pollId}`, JSON.stringify(true));
       setIsVoted(true);
     } catch (error) {
-      window.alert('투표 요청에 실패했습니다.');
+      toast.error('투표 요청에 실패했습니다.');
     }
   };
 

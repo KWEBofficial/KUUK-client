@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -17,7 +18,7 @@ export function ResultPage() {
     try {
       navigate('/');
     } catch (error) {
-      window.alert('메인 페이지로 돌아가지 못 했다');
+      toast.error('메인 페이지로 돌아가지 못 했다');
     }
   }
 
