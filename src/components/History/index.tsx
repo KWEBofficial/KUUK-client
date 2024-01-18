@@ -1,19 +1,40 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
 import Card from '@mui/material/Card';
-import { Box } from '@mui/material';
+import { Box, Checkbox } from '@mui/material';
 
 interface HistoryCardProps {
   navDir: string;
   imgDir: string;
   pollName: string;
   endedAt: Date | null;
+  onSelectionChange: (newState: boolean) => void;
+  isAllSelected: boolean;
+  isSelecting: boolean;
 }
-export default function HistoryCard({ navDir, imgDir, pollName, endedAt }: HistoryCardProps) {
+export default function HistoryCard({
+  navDir,
+  imgDir,
+  pollName,
+  endedAt,
+  onSelectionChange,
+  isAllSelected,
+  isSelecting,
+}: HistoryCardProps) {
   const navigate = useNavigate();
+  const [isSelected, setIsSelected] = useState(false);
+
+  function handleToggle() {
+    const newState = !isSelected;
+    setIsSelected(newState);
+    if (onSelectionChange) {
+      onSelectionChange(newState);
+    }
+  }
 
   function parseDate(date: Date | null): string {
     if (date === null) return '-';
@@ -25,8 +46,11 @@ export default function HistoryCard({ navDir, imgDir, pollName, endedAt }: Histo
     return `${month}월 ${day}일 ${hour}:${min}:${sec}`;
   }
 
+  useEffect(() => setIsSelected(isAllSelected), [isAllSelected]);
+
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box>{isSelecting && <Checkbox checked={isSelected} onChange={() => handleToggle()}></Checkbox>}</Box>
       <CardActionArea onClick={() => navigate(navDir)}>
         {endedAt === null && (
           <Box sx={{ position: 'absolute', left: 5, top: 5, backgroundColor: 'primary.main', borderRadius: '20px' }}>
@@ -40,32 +64,16 @@ export default function HistoryCard({ navDir, imgDir, pollName, endedAt }: Histo
             </Typography>
           </Box>
         )}
-        {imgDir === '' && (
-          <Box
-            sx={{
-              position: 'absolute',
-              width: '100%',
-              top: '30%',
-              transform: 'translate(0, -50%)',
-              textAlign: 'center',
-              whitespace: 'nowrap',
-            }}
-          >
-            <Typography variant="h5" color="primary.main" fontWeight="bold">
-              {'< 유찰 >'}
-            </Typography>
-          </Box>
-        )}
         <CardMedia
           component="div"
           sx={{
             pt: '100%',
           }}
-          image={imgDir}
+          image={imgDir === '' ? '/logo/유찰냥이.png' : imgDir}
         />
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography variant="body2"> 투표이름 : {pollName} </Typography>
-          <Typography variant="body2">종료시점 : {parseDate(endedAt)}</Typography>
+          <Typography variant="body2"> 종료시점 : {parseDate(endedAt)}</Typography>
         </CardContent>
       </CardActionArea>
     </Card>

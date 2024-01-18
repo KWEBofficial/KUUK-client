@@ -8,4 +8,5 @@ export interface Poll {
   createdUser: User;
   createdAt: Date;
   endedAt: Date;
+  isDeleted: boolean;
 }
