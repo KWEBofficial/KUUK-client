@@ -97,9 +97,9 @@ export function HistoryPage() {
           투표 시작하기
         </Fab>
       </Box>
-      <Box paddingX={8}>
+      <Box paddingX={10}>
         {isSelecting ? (
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography>모두 선택</Typography>
             <Checkbox checked={isAllSelected} onChange={() => setIsAllSelected(!isAllSelected)}></Checkbox>
             <Fab variant="extended" size="small" color="primary" onClick={() => deleteSelectedHistories()}>
