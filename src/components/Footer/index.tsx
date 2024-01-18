@@ -9,11 +9,11 @@ export default function Footer() {
           © 2024 KUUK. All rights reserved.
         </Typography>
         <Typography variant="body2" align="center">
-          <Link href="#" color="inherit">
+          <Link href="/term" color="inherit">
             이용 약관
           </Link>
           {' | '}
-          <Link href="#" color="inherit">
+          <Link href="/privacy" color="inherit">
             개인정보 처리방침
           </Link>
         </Typography>
