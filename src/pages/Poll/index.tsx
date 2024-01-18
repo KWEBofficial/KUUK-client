@@ -89,7 +89,7 @@ export function PollPage() {
         const result = await getStatus();
         setDisplayName(result);
       } catch (error) {
-        console.error('사용자 정보를 가져오는데 실패했습니다.');
+        toast.error('사용자 정보를 가져오는데 실패했습니다.');
       }
     };
 
@@ -131,12 +131,12 @@ export function PollPage() {
       );
       console.log(endPollResponse.data.res);
       if (!endPollResponse.data.res) {
-        window.alert('투표를 만든 사람만 종료할 수 있습니다.');
+        toast.error('투표를 만든 사람만 종료할 수 있습니다.');
       } else {
         navigate(`/poll/result/${pollId}`);
       }
     } catch (error) {
-      window.alert('투표를 만든 사람만 종료할 수 있습니다.');
+      toast.error('투표를 만든 사람만 종료할 수 있습니다.');
       console.error('투표 종료에 실패했습니다.');
     }
   };
@@ -168,7 +168,7 @@ export function PollPage() {
   }, [selectedRestaurants]);
 
   const domain = process.env.REACT_APP_API_DOMAIN || 'http://localhost:4000';
-  const fullUrl = pollFormData?.poll ? `${domain}/${pollFormData.poll.url}` : 'URL을 불러온ㄴ 중 ...';
+  const fullUrl = pollFormData?.poll ? `${domain}/invite/${pollFormData.poll.url}` : 'URL을 불러오는 중 ...';
   const handleUrlCopy = async () => {
     try {
       await navigator.clipboard.writeText(fullUrl);
@@ -207,7 +207,7 @@ export function PollPage() {
               </span>
               에 투표중입니다
             </span>
-            <span style={{ border: '1px solid black', width: '300px', padding: '4px 8px' }}>
+            <span style={{ border: '1px solid black', width: '360px', padding: '4px 8px', fontWeight: 'bold' }}>
               투표 url :
               <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={handleUrlCopy}>
                 {fullUrl}
