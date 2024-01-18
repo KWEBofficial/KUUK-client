@@ -67,13 +67,26 @@ export function PollPage() {
   // 투표 페이지에 현재 로그인된 유저 displayName 가져오는 함수.
   const getStatus = async () => {
     try {
-      const getDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/user/status`, {
+      const getUserDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/user/status`, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      const currentDisplayName: string = getDisplayName.data.displayName;
+      const getGuestDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/guest/status`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      let currentDisplayName: string = '';
+
+      if (getUserDisplayName.data.displayName) {
+        currentDisplayName = getUserDisplayName.data.displayName;
+      } else {
+        currentDisplayName = getGuestDisplayName.data.displayName;
+      }
 
       return currentDisplayName;
     } catch (error) {

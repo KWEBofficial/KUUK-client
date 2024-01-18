@@ -80,7 +80,7 @@ export function GuestLoginPage() {
         꾹[KUUK]!
       </Typography>
       <Box padding="20px">
-        <Avatar src={'/images/don.png'} sx={{ width: 76, height: 76 }}></Avatar>
+        <Avatar src={'/logo/유찰냥이.png'} sx={{ width: 76, height: 76 }}></Avatar>
       </Box>
       <Typography variant="h5">{poll?.createdUser.displayName} 님의</Typography>
       <Typography variant="h5">{poll?.pollName} 투표에 지금 참여하세요!</Typography>

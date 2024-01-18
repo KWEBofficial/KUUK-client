@@ -58,8 +58,9 @@ export function FilterPage() {
 
       if (userResponse.status !== 200 || guestResponse.status === 200) {
         navigate('/');
-        toast.error('투표창에 접근할 수 없습니다. 로그인 상태를 확인해주세요');
+        toast.error('투표창에 접근할 수 없습니다. 로그인 후 이용해주세요.');
       }
+
       const { data: response, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll`);
       if (status === 200) {
         setLocationsAndCategories(response);
