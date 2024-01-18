@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Typography } from '@mui/material';
 
+import CustomButton from '../CustomButton';
 import Candidate from '../../models/candidate';
 
 // Candidate에 color, voteCount 속성 추가
@@ -112,7 +113,7 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
           ></div>
         </div>
       ))}
-      <button onClick={() => userVote()}>투표</button>
+      <CustomButton text="투표하기" onClick={() => userVote()} />
     </div>
   );
 }
