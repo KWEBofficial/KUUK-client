@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 
@@ -6,6 +7,7 @@ import { Layout } from './components/Layout';
 import './App.css';
 import { AuthProvider } from './components/AuthContent';
 
+import 'react-toastify/dist/ReactToastify.css';
 /**
  * mui에서 제공하는 테마 설정입니다.
  * 글꼴을 Pretendard로 설정했습니다.
@@ -20,6 +22,12 @@ const theme = createTheme({
       light: '#FFC288',
       dark: '#FA8739',
       contrastText: '#FCECDD',
+    },
+    secondary: {
+      main: '#ffffff',
+      light: '#FFC288',
+      dark: '#ededed',
+      contrastText: '#FEA82F',
     },
   },
 });
@@ -40,6 +48,7 @@ function App() {
           </Layout>
         </AuthProvider>
       </BrowserRouter>
+      <ToastContainer />
     </ThemeProvider>
   );
 }
