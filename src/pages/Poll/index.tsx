@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Grid, Divider } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 import { PollFormData } from '../../models/pollFormData';
 import Candidate from '../../models/candidate';
@@ -152,9 +152,6 @@ export function PollPage() {
       return acc;
     }, []);
 
-    // alert(candidates.length);
-    // alert(`${candidates.length}!`); candidates[0].restaurant.id
-    // const currentSelectedCandidates = selectedIndexes.map((index) => candidates[index]);
     const currentSelectedCandidates = candidates.filter((candidate) =>
       selectedIndexes.includes(candidate.restaurant.id),
     );
@@ -172,12 +169,13 @@ export function PollPage() {
   return (
     <Grid container spacing={0} style={{ height: '100vh' }}>
       {/* 좌측 영역 */}
-      <Grid item xs={5}>
-        <Box>닉네임 : {displayName} </Box>
-        <Box>투표 이름 : {pollFormData?.poll.pollName}</Box>
-        <Box>만든 사람 : {pollFormData?.poll.createdUser.username} </Box>
-        <Box>투표 url : {pollFormData?.poll.url}</Box>
-        <Box>
+      <Grid item xs={5.9}>
+        <Typography display={'flex'} justifyContent="flex-start" variant="h6">
+          닉네임 : {displayName}
+        </Typography>
+        <Typography variant="h6">투표 이름 : {pollFormData?.poll.pollName}</Typography>
+        <Typography variant="h6">투표 url : {pollFormData?.poll.url}</Typography>
+        <Box display={'flex'} marginTop={3} paddingTop={10} maxHeight={600} overflow={'auto'}>
           <RestaurantCard
             restaurants={pollFormData.restaurants}
             selectedRestaurants={selectedRestaurants}
@@ -186,19 +184,26 @@ export function PollPage() {
         </Box>
       </Grid>
 
-      <Grid item xs={2}>
-        <Divider orientation="vertical" flexItem />
+      <Grid item xs={0.1} md={0.1}>
+        <Box
+          sx={{
+            height: '80%',
+            borderRight: '1px solid orange',
+            display: { xs: 'none', md: 'block' },
+          }}
+        />
       </Grid>
 
       {/* 우측 영역 */}
-      <Grid item xs={5}>
-        <Box paddingX={8} paddingY={10} textAlign={'center'}>
+      <Grid item xs={5.9}>
+        <Box paddingX={8} paddingY={3} justifyContent={'center'} alignItems={'center'}>
           <VoteBar candidates={pollFormData.candidates} selectedCandidates={selectedCandidates} />
         </Box>
-        <Box>
-          {' '}
-          {isPollEnded && <CustomButton text="투표 결과 보기" onClick={() => navigate(`/poll/result/${pollId}`)} />}
-          {!isPollEnded && <CustomButton text="투표 종료" onClick={endPoll} />}
+        <Box display="flex" justifyContent="flex-end">
+          {isPollEnded && (
+            <CustomButton width={150} text="투표 결과 보기" onClick={() => navigate(`/poll/result/${pollId}`)} />
+          )}
+          {!isPollEnded && <CustomButton width={150} text="투표 종료" onClick={endPoll} />}
         </Box>
       </Grid>
     </Grid>

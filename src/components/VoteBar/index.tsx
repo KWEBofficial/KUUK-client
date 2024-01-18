@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import CustomButton from '../CustomButton';
 import Candidate from '../../models/candidate';
@@ -97,23 +97,30 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
 
   return (
     <div>
-      {extendedCandidates.map((candidate) => (
-        <div key={candidate.restaurant.restaurantName}>
-          <Typography variant="subtitle1">
-            {candidate.restaurant.restaurantName}: {candidate.voteCount}표
-          </Typography>
-          <div
-            style={{
-              width: `${candidate.voteCount * 10}px`,
-              height: '20px',
-              backgroundColor: candidate.color,
-              transition: 'width 0.3s ease',
-              marginRight: '10px',
-            }}
-          ></div>
-        </div>
-      ))}
-      <CustomButton text="투표하기" onClick={() => userVote()} />
+      <Box height="600px" maxHeight="600px" overflow="auto" paddingRight="10px">
+        {extendedCandidates.map((candidate) => (
+          <div key={candidate.restaurant.restaurantName}>
+            <Typography variant="subtitle1">
+              {candidate.restaurant.restaurantName}: {candidate.voteCount}표
+            </Typography>
+            <div
+              style={{
+                width: `${candidate.voteCount * 40}px`,
+                height: '50px',
+                backgroundColor: candidate.color,
+                transition: 'width 0.3s ease',
+                marginTop: '10px',
+                marginBottom: '10px',
+                marginRight: '15px',
+                borderRadius: '10px',
+              }}
+            ></div>
+          </div>
+        ))}
+      </Box>
+      <Box marginTop={10} display="flex" justifyContent="flex-end">
+        <CustomButton text="투표하기" onClick={() => userVote()} />
+      </Box>
     </div>
   );
 }

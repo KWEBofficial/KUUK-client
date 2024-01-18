@@ -60,7 +60,7 @@ export function ResultPage() {
           <ImageList variant="masonry" cols={3} gap={20} sx={{ margin: 0 }}>
             {restaurants.map((restaurant) => (
               <ImageListItem key={restaurant.id}>
-                <img src={restaurant.imgDir} alt={restaurant.restaurantName} loading="lazy" />
+                <img src={restaurant.imgDir?.replace(/^./, '')} alt={restaurant.restaurantName} loading="lazy" />
                 <Typography>{`${restaurant.restaurantName}: ${restaurant.description}`}</Typography>
               </ImageListItem>
             ))}
