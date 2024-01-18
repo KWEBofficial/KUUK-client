@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { TermPage } from '../pages/Term';
 import { ResultPage } from '../pages/Result';
 import { PrivacyPage } from '../pages/Privacy';
+import { PollPage } from '../pages/Poll';
 import { MainPage } from '../pages/Main';
 import { LoginPage } from '../pages/Login';
 import { ListPage } from '../pages/List';
