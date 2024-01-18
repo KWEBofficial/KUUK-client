@@ -97,10 +97,10 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
 
   return (
     <div>
-      <Box height="600px" maxHeight="600px" overflow="auto" paddingRight="10px">
+      <Box height="550px" maxHeight="550px" overflow="auto" paddingRight="10px">
         {extendedCandidates.map((candidate) => (
           <div key={candidate.restaurant.restaurantName}>
-            <Typography variant="subtitle1">
+            <Typography fontWeight="bold" variant="subtitle1" paddingLeft={2} paddingTop={2}>
               {candidate.restaurant.restaurantName}: {candidate.voteCount}표
             </Typography>
             <div
@@ -110,16 +110,16 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
                 backgroundColor: candidate.color,
                 transition: 'width 0.3s ease',
                 marginTop: '10px',
-                marginBottom: '10px',
-                marginRight: '15px',
+                marginRight: '30px',
+                marginLeft: '15px',
                 borderRadius: '10px',
               }}
             ></div>
           </div>
         ))}
       </Box>
-      <Box marginTop={10} display="flex" justifyContent="flex-end">
-        <CustomButton text="투표하기" onClick={() => userVote()} />
+      <Box marginTop={2} display="flex" justifyContent="flex-end">
+        <CustomButton width="150px" text="투표하기" onClick={() => userVote()} />
       </Box>
     </div>
   );

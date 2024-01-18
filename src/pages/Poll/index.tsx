@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -166,16 +167,55 @@ export function PollPage() {
     setSelectedCandidates(result);
   }, [selectedRestaurants]);
 
+  const domain = process.env.REACT_APP_API_DOMAIN || 'http://localhost:4000';
+  const fullUrl = pollFormData?.poll ? `${domain}/${pollFormData.poll.url}` : 'URL을 불러온ㄴ 중 ...';
+  const handleUrlCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(fullUrl);
+      toast.success('URL이 클립보드에 복사되었습니다.');
+    } catch (err) {
+      toast.error('URL 복사에 실패했습니다.');
+    }
+  };
   return (
     <Grid container spacing={0} style={{ height: '100vh' }}>
       {/* 좌측 영역 */}
       <Grid item xs={5.9}>
-        <Typography display={'flex'} justifyContent="flex-start" variant="h6">
-          닉네임 : {displayName}
-        </Typography>
-        <Typography variant="h6">투표 이름 : {pollFormData?.poll.pollName}</Typography>
-        <Typography variant="h6">투표 url : {pollFormData?.poll.url}</Typography>
-        <Box display={'flex'} marginTop={3} paddingTop={10} maxHeight={600} overflow={'auto'}>
+        <Box paddingLeft={2}>
+          <Typography>
+            <span
+              style={{
+                fontFamily: 'neurimboGothicRegular',
+                fontSize: '25pt',
+                paddingRight: '10px',
+              }}
+            >
+              {displayName}
+            </span>
+            <span style={{ fontSize: '15pt' }}>님이</span>
+          </Typography>
+          <Typography sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '15pt' }}>
+              <span
+                style={{
+                  fontFamily: 'neurimboGothicRegular',
+                  color: 'primary',
+                  paddingRight: '10px',
+                }}
+              >
+                {pollFormData?.poll.pollName}
+              </span>
+              에 투표중입니다
+            </span>
+            <span style={{ border: '1px solid black', width: '300px', padding: '4px 8px' }}>
+              투표 url :
+              <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={handleUrlCopy}>
+                {fullUrl}
+              </span>
+            </span>
+          </Typography>
+        </Box>
+        <Box display={'flex'} marginTop={3} paddingTop={3} maxHeight={550} overflow={'auto'}>
           <RestaurantCard
             restaurants={pollFormData.restaurants}
             selectedRestaurants={selectedRestaurants}
@@ -196,7 +236,7 @@ export function PollPage() {
 
       {/* 우측 영역 */}
       <Grid item xs={5.9}>
-        <Box paddingX={8} paddingY={3} justifyContent={'center'} alignItems={'center'}>
+        <Box paddingY={1} justifyContent={'center'} alignItems={'center'}>
           <VoteBar candidates={pollFormData.candidates} selectedCandidates={selectedCandidates} />
         </Box>
         <Box display="flex" justifyContent="flex-end">
