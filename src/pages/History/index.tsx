@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -47,13 +48,13 @@ export function HistoryPage() {
         },
       );
       if (status === 200) {
-        window.alert(response);
+        toast.error(response);
         window.location.reload();
       }
     } catch (e) {
       console.error('히스토리 정보를 삭제하는데 실패했습니다.');
       if (axios.isAxiosError(e)) {
-        window.alert(e.response?.data.message);
+        toast.error(e.response?.data.message);
       }
     }
   }
@@ -72,7 +73,7 @@ export function HistoryPage() {
     } catch (e) {
       console.error('히스토리 정보를 가져오는데 실패했습니다.');
       if (axios.isAxiosError(e)) {
-        window.alert(e.response?.data.message);
+        toast.error(e.response?.data.message);
       }
       navigate('/login');
     }
