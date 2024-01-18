@@ -53,7 +53,7 @@ export function ResultPage() {
             marginX={'10%'}
             sx={{ backgroundColor: 'primary.main' }}
           >
-            당신의 선택! {voteCount}표
+            <span style={{ fontWeight: 600 }}>당신의 선택! {voteCount}표</span>
           </Typography>
         </Box>
         <Box paddingY={'20px'} width={'100%'}>
@@ -61,7 +61,11 @@ export function ResultPage() {
             {restaurants.map((restaurant) => (
               <ImageListItem key={restaurant.id}>
                 <img src={restaurant.imgDir?.replace(/^./, '')} alt={restaurant.restaurantName} loading="lazy" />
-                <Typography>{`${restaurant.restaurantName}: ${restaurant.description}`}</Typography>
+                <Box textAlign={'center'} paddingY={1}>
+                  <Typography variant="h6">
+                    <span style={{ fontWeight: 600 }}>{restaurant.restaurantName}</span>
+                  </Typography>
+                </Box>
               </ImageListItem>
             ))}
           </ImageList>
