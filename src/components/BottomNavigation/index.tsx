@@ -1,9 +1,3 @@
-/**
- * 아이콘 목록은 아래 링크에서 확인 가능.
- * 버튼 누르면 바로 복사해서 사용할 수 있음.
- * https://mui.com/material-ui/material-icons/
- */
-
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -30,7 +24,6 @@ export default function BottomNav() {
         <BottomNavigationAction label="유저 추가" icon={<PersonAddIcon />} onClick={() => navigate('/join')} />
         <BottomNavigationAction label="히스토리" icon={<HistoryIcon />} onClick={() => navigate('/history')} />
         <BottomNavigationAction label="게스트 로그인" icon={<LoginIcon />} onClick={() => navigate('/invite/Ko8y7')} />
-        {/* invite/:url */}
         <BottomNavigationAction label="투표 결과" icon={<PollIcon />} onClick={() => navigate('/poll/result/1')} />
       </BottomNavigation>
     </Box>

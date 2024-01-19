@@ -12,7 +12,6 @@ export function InvitePage() {
     try {
       const { status } = await axios.get(`${process.env.REACT_APP_API_URL}/guest/login/${url}`);
       if (status === 200) {
-        console.log('투표 정보를 가져오는데 성공했습니다.');
         navigate(`/guest/login/${url}`);
       } else {
         toast.error('투표 정보를 가져오는데 실패했습니다.');

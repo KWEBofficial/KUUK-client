@@ -11,7 +11,6 @@ export function MainPage() {
   const navigate = useNavigate();
 
   return (
-    /* 스크롤 바 */
     <Box
       sx={{
         flexGrow: 1,
@@ -31,7 +30,6 @@ export function MainPage() {
     >
       {/* 스크롤 바 */}
       <Grid container spacing={0}>
-        {/* 좌측 서비스 설명 */}
         <Grid item xs={12} md={6}>
           <Stack sx={{ width: '700px', maxWidth: '1732px' }} spacing={2}>
             <Typography

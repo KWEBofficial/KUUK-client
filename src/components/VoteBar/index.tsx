@@ -1,23 +1,19 @@
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Typography } from '@mui/material';
 
 import CustomButton from '../CustomButton';
 import Candidate from '../../models/candidate';
 
-// Candidate에 color, voteCount 속성 추가
 interface ExtendedCandidate extends Candidate {
   color: string;
   voteCount: number;
 }
-
-// 후보마다 흰 색을 제외한 랜덤한 색상 부여
 async function getRandomColor(): Promise<string> {
   let randomColor: string;
 
-  // 임계값 이상의 값이면 검정색으로 설정
   const threshold: number = 30;
 
   do {
@@ -34,7 +30,6 @@ async function getRandomColor(): Promise<string> {
   return randomColor;
 }
 
-// 선택한 candidate의 현재 투표 수 불러오는 함수
 const getVoteCount = async (candidateId: number) => {
   const VoteCountResponse = await axios.get(`${process.env.REACT_APP_API_URL}/poll/1/${candidateId}`);
   const voteCount: number = VoteCountResponse.data;
@@ -46,7 +41,6 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
   const { pollId } = useParams();
   useEffect(() => {
     const initializeCandidates = async () => {
-      // props로 받아온 모든 후보에 대해 color와 초기 voteCount 설정
       const newExtendedCandidates: ExtendedCandidate[] = await Promise.all(
         props.candidates.map(async (candidate) => ({
           ...candidate,
@@ -61,7 +55,6 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
     initializeCandidates();
   }, [props.candidates]);
 
-  // 이미 투표했는지 여부 확인하는 state
   const [isVoted, setIsVoted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -71,8 +64,7 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
     }
   }, []);
 
-  // 현재 extendedCandidates들 중 props로 받은 selectedCandidates내에 있는 (즉 내가 선택한) candidate에 대해서 vote table을 생성하고
-  // VoteCount를 최신화하기
+  // VoteCount를 최신화
   const userVote = async () => {
     try {
       if (isVoted) {
@@ -80,9 +72,7 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
         return;
       }
       const votePromises = extendedCandidates.map(async (candidate) => {
-        // selectedCandidates 배열에 현재 후보(candidate)의 id가 포함되어 있는지 확인
         const isSelectedCandidate = props.selectedCandidates.some((selected) => selected.id === candidate.id);
-        // isSelectedCandidate가 true인 경우에만 투표 수행
         if (isSelectedCandidate) {
           const response = await axios.post(
             `${process.env.REACT_APP_API_URL}/poll/${Number(pollId)}`,
@@ -102,7 +92,6 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
           return { candidate, voteCount: await getVoteCount(candidate.id) };
         }
 
-        // isSelectedCandidate가 false인 경우에는 현재 후보 정보만 반환
         return { candidate, voteCount: candidate.voteCount };
       });
 

@@ -1,11 +1,6 @@
-interface Restaurant {
-  id: number;
-  restaurantName: string;
-  imgDir?: string;
-  description: string;
-}
+import { ResultRestaurant } from './resultRestaurant';
 
 export default interface Candidate {
   id: number;
-  restaurant: Restaurant;
+  restaurant: ResultRestaurant;
 }
