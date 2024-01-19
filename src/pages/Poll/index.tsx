@@ -127,7 +127,32 @@ export function PollPage() {
     getPollFormData();
   }, []);
 
-  const isPollEnded = pollFormData.poll.createdAt !== pollFormData.poll.endedAt;
+  const [isPollEnded, setIsPollEnded] = useState<boolean>(false);
+
+  const checkEnded = async () => {
+    try {
+      const { data: pollFormResponse, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll/${pollId}`);
+      if (status === 200) {
+        if (pollFormResponse.poll.createdAt !== pollFormResponse.poll.endedAt) {
+          if (!isPollEnded) {
+            setIsPollEnded(true);
+            toast.info('투표가 종료되었습니다!');
+          }
+        }
+      } else {
+        throw new Error();
+      }
+    } catch {
+      console.error('투표 정보를 가져오는데 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      await checkEnded();
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [isPollEnded]);
 
   // 투표 종료 버튼 클릭 시 실행될 함수 -> 결과 페이지로 이동
   const endPoll = async () => {
