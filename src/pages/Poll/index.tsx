@@ -66,13 +66,26 @@ export function PollPage() {
 
   const getStatus = async () => {
     try {
-      const getDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/user/status`, {
+      const getUserDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/user/status`, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      const currentDisplayName: string = getDisplayName.data.displayName;
+      const getGuestDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/guest/status`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      let currentDisplayName: string = '';
+
+      if (getUserDisplayName.data.displayName) {
+        currentDisplayName = getUserDisplayName.data.displayName;
+      } else {
+        currentDisplayName = getGuestDisplayName.data.displayName;
+      }
 
       return currentDisplayName;
     } catch (error) {
@@ -165,8 +178,22 @@ export function PollPage() {
       await navigator.clipboard.writeText(fullUrl);
       toast.success('URL이 클립보드에 복사되었습니다.');
     } catch (err) {
+      fallbackCopyToClipboard(fullUrl);
+    }
+  };
+  const fallbackCopyToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      toast.success('URL이 클립보드에 복사되었습니다.');
+    } catch (err) {
       toast.error('URL 복사에 실패했습니다.');
     }
+    document.body.removeChild(textArea);
   };
   return (
     <Grid container spacing={0} style={{ height: '100vh' }}>
@@ -198,11 +225,12 @@ export function PollPage() {
               </span>
               에 투표중입니다
             </span>
-            <span style={{ border: '1px solid black', width: '360px', padding: '4px 8px', fontWeight: 'bold' }}>
+            <span style={{ border: '1px solid black', width: '430px', padding: '4px 8px', fontWeight: 'bold' }}>
               투표 url :
               <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={handleUrlCopy}>
                 {fullUrl}
               </span>
+              <span> 눌러서 복사</span>
             </span>
           </Typography>
         </Box>

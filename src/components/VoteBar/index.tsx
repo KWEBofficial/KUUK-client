@@ -11,18 +11,25 @@ interface ExtendedCandidate extends Candidate {
   color: string;
   voteCount: number;
 }
-
 // 후보마다 흰 색을 제외한 랜덤한 색상 부여
-function getRandomColor() {
-  let color;
+async function getRandomColor(): Promise<string> {
+  let randomColor: string;
+
+  // 임계값 이상의 값이면 검정색으로 설정
+  const threshold: number = 30;
+
   do {
-    color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  } while (isWhiteish(color));
-  return color;
-}
-// 랜덤 생성한 색이 흰 색인지 판별
-function isWhiteish(color: string) {
-  return color.toUpperCase() === '#FFFFFF';
+    randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    const r: number = parseInt(randomColor.slice(1, 3), 16);
+    const g: number = parseInt(randomColor.slice(3, 5), 16);
+    const b: number = parseInt(randomColor.slice(5, 7), 16);
+
+    if (r > 255 - threshold && g > 255 - threshold && b > 255 - threshold) {
+      randomColor = '#000000';
+    }
+  } while (!randomColor || randomColor.length !== 7);
+
+  return randomColor;
 }
 
 const getVoteCount = async (candidateId: number) => {
@@ -39,7 +46,7 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
       const newExtendedCandidates: ExtendedCandidate[] = await Promise.all(
         props.candidates.map(async (candidate) => ({
           ...candidate,
-          color: getRandomColor(),
+          color: await getRandomColor(),
           voteCount: await getVoteCount(candidate.id),
         })),
       );
@@ -104,6 +111,37 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
       toast.error('투표 요청에 실패했습니다.');
     }
   };
+
+  // VoteCount가 달라진 경우 extendedCandidates에 새로 추가
+  const updateVoteCount = async () => {
+    try {
+      const updatedCandidates = await Promise.all(
+        extendedCandidates.map(async (candidate) => {
+          const currentVoteCount = candidate.voteCount;
+          const newVoteCount = await getVoteCount(candidate.id);
+          return { candidate, currentVoteCount, newVoteCount };
+        }),
+      );
+      setExtendedCandidates((prevCandidates) =>
+        prevCandidates.map((c) => {
+          const matchingUpdate = updatedCandidates.find((updated) => updated.candidate.id === c.id);
+          return matchingUpdate && matchingUpdate.currentVoteCount !== matchingUpdate.newVoteCount
+            ? { ...c, voteCount: matchingUpdate.newVoteCount }
+            : c;
+        }),
+      );
+    } catch (error) {
+      window.alert('투표 정보를 가져오는데 실패했습니다.');
+    }
+  };
+  // 1초마다 extendedCandidates 변화를 감지해서 투표 바 자동으로 변경해주기
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      await updateVoteCount();
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [extendedCandidates]);
 
   return (
     <div>
