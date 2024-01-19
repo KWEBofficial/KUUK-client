@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent } from '@mui/material';
+import { useState } from 'react';
+import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 interface Birthdate {
   year: string;
@@ -24,7 +24,7 @@ export default function BirthdateInput({ onChange }: BirthdateInputProps) {
         parseInt(updatedBirthdate.month, 10) - 1,
         parseInt(updatedBirthdate.day, 10),
       );
-      onChange(newDate); // 부모 컴포넌트로 변경된 날짜 전달
+      onChange(newDate);
     }
   };
   return (

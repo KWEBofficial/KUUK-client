@@ -27,7 +27,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       setIsLoggedIn(response.status === 200);
     } catch (error) {
-      console.error('인증 상태 확인 실패:', error);
       setIsLoggedIn(false);
     }
   };

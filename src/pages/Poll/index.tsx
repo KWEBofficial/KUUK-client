@@ -64,7 +64,6 @@ export function PollPage() {
     ],
   });
 
-  // 투표 페이지에 현재 로그인된 유저 displayName 가져오는 함수.
   const getStatus = async () => {
     try {
       const getDisplayName = await axios.get(`${process.env.REACT_APP_API_URL}/user/status`, {
@@ -80,7 +79,6 @@ export function PollPage() {
       return null;
     }
   };
-  // 현재 로그인된 유저/게스트의 displayName을 나타내는 state
   const [displayName, setDisplayName] = useState<string | null>(null);
 
   useEffect(() => {
@@ -96,7 +94,6 @@ export function PollPage() {
     getDisplayName();
   }, []);
 
-  // 현재 투표 관련된 정보들을 가져오는 함수
   const getPollFormData = async () => {
     try {
       const { data: pollFormResponse, status } = await axios.get(`${process.env.REACT_APP_API_URL}/poll/${pollId}`);
@@ -116,7 +113,6 @@ export function PollPage() {
 
   const isPollEnded = pollFormData.poll.createdAt !== pollFormData.poll.endedAt;
 
-  // 투표 종료 버튼 클릭 시 실행될 함수 -> 결과 페이지로 이동
   const endPoll = async () => {
     try {
       const endPollResponse = await axios.post(
@@ -129,7 +125,6 @@ export function PollPage() {
           },
         },
       );
-      console.log(endPollResponse.data.res);
       if (!endPollResponse.data.res) {
         toast.error('투표를 만든 사람만 종료할 수 있습니다.');
       } else {
@@ -144,7 +139,6 @@ export function PollPage() {
   const [selectedRestaurants, setSelectedRestaurants] = useState<boolean[]>([]);
   const [selectedCandidates, setSelectedCandidates] = useState<Candidate[]>([]);
 
-  // 선택한 restaurant index와 같은 index의 candidate를 찾아서 반환
   const getSelectedCandidates = (candidates: Candidate[]) => {
     const selectedIndexes = selectedRestaurants.reduce((acc: number[], isSelected, index) => {
       if (isSelected) {
@@ -156,14 +150,11 @@ export function PollPage() {
     const currentSelectedCandidates = candidates.filter((candidate) =>
       selectedIndexes.includes(candidate.restaurant.id),
     );
-    console.log(currentSelectedCandidates);
     return currentSelectedCandidates;
   };
 
-  // RestaurantCard에서 선택/해제 시 selectedRestaurants이 변하고, 이에 따라 setSelectedCandidates도 변하도록
   useEffect(() => {
     const result = getSelectedCandidates(pollFormData.candidates);
-    console.log(result);
     setSelectedCandidates(result);
   }, [selectedRestaurants]);
 
