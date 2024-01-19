@@ -14,17 +14,26 @@ interface ExtendedCandidate extends Candidate {
 }
 
 // 후보마다 흰 색을 제외한 랜덤한 색상 부여
-function getRandomColor() {
-  let color;
+async function getRandomColor(): Promise<string> {
+  let randomColor: string;
+
+  // 임계값 이상의 값이면 검정색으로 설정
+  const threshold: number = 30;
+
   do {
-    color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  } while (isWhiteish(color));
-  return color;
+    randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    const r: number = parseInt(randomColor.slice(1, 3), 16);
+    const g: number = parseInt(randomColor.slice(3, 5), 16);
+    const b: number = parseInt(randomColor.slice(5, 7), 16);
+
+    if (r > 255 - threshold && g > 255 - threshold && b > 255 - threshold) {
+      randomColor = '#000000';
+    }
+  } while (!randomColor || randomColor.length !== 7);
+
+  return randomColor;
 }
-// 랜덤 생성한 색이 흰 색인지 판별
-function isWhiteish(color: string) {
-  return color.toUpperCase() === '#FFFFFF';
-}
+
 // 선택한 candidate의 현재 투표 수 불러오는 함수
 const getVoteCount = async (candidateId: number) => {
   const VoteCountResponse = await axios.get(`${process.env.REACT_APP_API_URL}/poll/1/${candidateId}`);
@@ -41,7 +50,7 @@ export default function voteBar(props: { candidates: Candidate[]; selectedCandid
       const newExtendedCandidates: ExtendedCandidate[] = await Promise.all(
         props.candidates.map(async (candidate) => ({
           ...candidate,
-          color: getRandomColor(),
+          color: await getRandomColor(),
           voteCount: await getVoteCount(candidate.id),
         })),
       );
