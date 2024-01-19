@@ -234,11 +234,12 @@ export function PollPage() {
               </span>
               에 투표중입니다
             </span>
-            <span style={{ border: '1px solid black', width: '360px', padding: '4px 8px', fontWeight: 'bold' }}>
+            <span style={{ border: '1px solid black', width: '430px', padding: '4px 8px', fontWeight: 'bold' }}>
               투표 url :
               <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={handleUrlCopy}>
                 {fullUrl}
               </span>
+              <span> 눌러서 복사</span>
             </span>
           </Typography>
         </Box>
