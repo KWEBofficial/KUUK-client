@@ -11,11 +11,9 @@ interface ExtendedCandidate extends Candidate {
   color: string;
   voteCount: number;
 }
-// 후보마다 흰 색을 제외한 랜덤한 색상 부여
 async function getRandomColor(): Promise<string> {
   let randomColor: string;
 
-  // 임계값 이상의 값이면 검정색으로 설정
   const threshold: number = 30;
 
   do {
